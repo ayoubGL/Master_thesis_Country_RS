@@ -1,0 +1,64 @@
+.body_page {
+    background: url('../img/d.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.transbox {
+    opacity: 0.7;
+    filter: alpha(opacity=10);
+}
+
+.transbox_desc {
+    background-color: #040a0e;
+    opacity: 0.8;
+    filter: alpha(opacity=10);
+}
+
+nav {
+    height: 70px;
+    line-height: 70px;
+}
+
+nav i,
+nav [class^="mdi-"],
+nav [class*="mdi-"],
+nav i.material-icons {
+    height: 70px;
+    line-height: 70px;
+}
+
+nav .button-collapse i {
+    height: 70px;
+    line-height: 70px;
+}
+
+nav .brand-logo {
+    font-size: 1.6rem;
+}
+
+@media only screen and (min-width: 601px) {
+    nav,
+    nav .nav-wrapper i,
+    nav a.button-collapse,
+    nav a.button-collapse i {
+        height: 70px;
+        line-height: 70px;
+    }
+}
+
+.nav_bar {
+    background: rgba(75, 77, 75, 0.3)
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}

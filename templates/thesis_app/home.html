@@ -1,0 +1,45 @@
+{% extends "thesis_app/header.html" %} {% block content %} {% load crispy_forms_tags %}
+
+<div class="row">
+    <div class="col s12 m6 teal lighten-5 transbox ">
+        <div class="card ">
+            <div class="container">
+                <h3 style="color: rgb(12, 12, 12);text-align: center;opacity: 0.7;" class="vc_custom_heading">Which Country should you live in ?</h3>
+                <br/>
+                <h5 style="text-align: center;opacity: 0.9;">Register to find out !</h5>
+
+            </div>
+
+            <div class="card-content white-text white-text">
+                <form method="POST" action="">
+                    {% csrf_token %} {{form|crispy}}
+
+
+
+                    <br>
+                    <br>
+
+                    <center><button type="submit" class="waves-effect waves-light btn-large"> <i class="material-icons center">Submit</i></button>
+                    </center>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6 ">
+        <div class="card blue-grey transbox_desc">
+            <div class="card-content">
+
+                This is a ENSIAS & UNIBZ research project devoted to personalized rankings and recommendations of countries.
+                <br />
+                <br /> Respondent is asked to rate a few countries that are offered based on the geographic region they select. Based on these ratings the system would show three lists of potential countries the respondent might be interested in.
+                <br />
+                <br /> This Master thesis is undertaken by <a href="" class="text-primary">EL MAJJODI Ayoub</a> with the supervision of the project by <a href="" class="text-primary">Nabil El Ioini</a> and <a href="" class="text-primary">Mehdi Elahi</a>                .
+                <br />
+                <br /> To learn more about how it works <a href="" class="text-primary">click here.</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
