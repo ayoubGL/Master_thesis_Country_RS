@@ -33,14 +33,21 @@
                     <a href="{% url 'thesis_app:home' %}" class="brand-logo"><img src="{%static 'img/dark3.png'%}" alt="" width="170"></a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         <li>
-                            <a class=' blue-text text-darken-2' href="#how works">
+                            <span> <a class='blue-text text-darken-2' href="#how works">
                                 <h5>How Works</h5>
-                            </a>
+                            </a></span>
                         </li>
                         <li>
-                            <a class=' blue-text text-darken-2' href="#login">
-                                <h5> Login</h5>
-                            </a>
+                            {% if user.is_authenticated %}
+                            <span>
+                                <a class='blue-text text-darken-2' href="{% url 'logout' %}">
+                                    <h5>Logout</h5>
+                                </a>
+                            </span> {% else %}<span>
+                            <a class='blue-text text-darken-2' href="{% url 'login'  %}">
+                                <h5>Login</h5>
+                            </a> </span>{% endif %}
+
                         </li>
                     </ul>
 
@@ -62,7 +69,7 @@
         <footer class="page-footer  nav_bar">
             <div class="footer-copyright">
                 <div class="container">
-                    <spin class="white-text text-darken-2 center" href="#!">© 2019 Copyright Text</spin>
+                    <span class="white-text text-darken-2 center" href="#!">© 2019 Copyright Text</span>
                 </div>
             </div>
         </footer>
