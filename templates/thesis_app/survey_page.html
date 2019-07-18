@@ -1,18 +1,9 @@
-{% extends "thesis_app/header.html" %} {% block content %}
-
-<div class="card-panel">
-    <div class="container">
-
-        <div class="row">
-            <h5 class="col s10">Step 1 out of 6</h5>
-        </div>
-        <div class="progress">
-            <div class="determinate" style="width: 10%"></div>
-        </div>
-    </div>
-    <h2 style="text-align: center" class="vc_custom_heading">Please let us know a bit about yourself !</h2>
+{%load staticfiles %}
+<div class="container">
+    <p>
+        <form method="post" action=".">
+            {% csrf_token %} {{form.as_ul}}
+            <input type="submit">
+        </form>
+    </p>
 </div>
-
-
-
-{% endblock %}

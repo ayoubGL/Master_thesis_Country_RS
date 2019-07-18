@@ -5,16 +5,40 @@ from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-# Create your views here.
+from django.template import RequestContext
+from .forms import step_1Form
+from .choices import *
+
 
 
 def survey_page(request):
     if request.user.is_authenticated:
-        user = request.user
-        return render(request, 'thesis_app/survey_page.html',context={'user':user})
+        if request.method == "POST":
+            form = step_1Form(request.POST or None,initial={
+                'gender':Gender_choices[0][0],
+                'age': Age_choices[0][0],
+                'country': 'GB',
+                'imaginative':Imaginative_choices[0][0],
+                'organized':Organized_choices[0][0],
+                'enthusiastic':Enthusiastic_choices[0][0],
+                'kind':kind_choices[0][0],
+                'calm':Calm_choices[0][0],
+            })
+            user = request.user  
+            return render(request, 'thesis_app/survey_page.html',context={'user':user,'form':form})
     else :
         return redirect('thesis_app:login')
-
+    user = request.user
+    form  = step_1Form(request.POST or None,initial={
+                'gender':Gender_choices[0][0],
+                'age': Age_choices[0][0],
+                'imaginative':Imaginative_choices[0][0],
+                'organized':Organized_choices[0][0],
+                'enthusiastic':Enthusiastic_choices[0][0],
+                'kind':kind_choices[0][0],
+                'calm':Calm_choices[0][0],
+            })
+    return render(request, 'thesis_app/survey_page.html',context={'user':user,'form':form})
 
 
 def home(request):
@@ -26,7 +50,7 @@ def home(request):
                                     password=form.cleaned_data['password1'],
                                     )
             login(request, new_user)
-            return redirect("survey_page/")
+            return redirect('thesis_app:survey_page')
 
         else:
             for msg in form.error_messages:
@@ -46,27 +70,6 @@ def home(request):
     
 
 
-
-# def home(request):
-#     if request.method == "POST":
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("survey_page/")
-
-#         else:
-#             for msg in form.error_messages:
-#                 print(form.error_messages[msg])
-
-#             return render(request = request,
-#                           template_name = "thesis_app/home.html",
-#                           context={"form":form})
-
-#     form = UserCreationForm
-#     return render(request = request,
-#                   template_name = "thesis_app/home.html",
-#                   context={"form":form})
-
 def logout_request(request):
     logout(request)
     return redirect('thesis_app:home')
@@ -74,7 +77,7 @@ def logout_request(request):
 
 def login_request(request):
     if request.user.is_authenticated:
-        return redirect('thesis_app:survey_page')
+        return render(request,'thesis_app/survey_page.html',context={'user':request.user})
     else:
         if request.method == 'POST':
             form = AuthenticationForm(request,data = request.POST)

@@ -12,12 +12,16 @@
 
             <div class="card-content">
                 <form method="POST">
-                    {% csrf_token %} {{form|crispy}}
+                    {% csrf_token %} {{form.as_p}}
 
+                    <br> {% for message in messages %}
+
+                    <div style="color: #ec0c0c;font-size: 25px !important;">
+                        <a href="# " data-dismiss="alert "></a> {{ message }}
+
+                    </div>
+                    {% endfor %}
                     <br>
-                    <br>
-
-
 
                     <button type="submit " class="waves-effect waves-light btn-large "> <i class="material-icons center ">Login</i></button>
 
