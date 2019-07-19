@@ -12,17 +12,25 @@ User = get_user_model()
 
 
 class RegistrationForm(UserCreationForm):
-    Email = forms.EmailField(required = True) 
+    email = forms.EmailField(required = True) 
     class Meta:
         model = User 
-        fields = ['username','Email','password1','password2']
+        fields = ['username','email','password1','password2']
         
     def __init__(self, *args, **kwargs):
         super(UserCreationForm, self).__init__(*args, **kwargs)
 
         for fieldname in ['username', 'password1', 'password2']:
             self.fields[fieldname].help_text = None
-  
+    def save(self,commit = True):
+        user = super(RegistrationForm,self).save(commit = False)
+        user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        
+        if commit:
+            user.save()
+            
+        return user
 
   
   

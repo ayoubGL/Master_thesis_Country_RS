@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.conf import settings
 from django_countries.fields import CountryField
 from django_countries import countries 
+from django.contrib.auth.models import User
 
 
   
@@ -84,8 +85,9 @@ class step_1(models.Model):
     )
     
     user_id = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        User,
+        default = 1,
+        on_delete=models.CASCADE
     )
     
     gender = models.CharField(

@@ -59,7 +59,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
-        'OPTIONS': {
+        'OPTIONS': {            
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -85,7 +85,10 @@ DATABASES = {
         'PASSWORD': 'par4.',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         
-    }
+    },
+    'OPTIONS':{
+        "init_command":"SET foreign_key_checks = 0;",
+}
 }
 
 
@@ -128,6 +131,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ]
 CRISPY_TEMPLATE_PACK = 'materialize_css_forms'
+
 
 # my_project/settings.py
 # LOGIN_REDIRECT_URL = '/'

@@ -24,8 +24,10 @@ def survey_page(request):
                 'kind':kind_choices[0][0],
                 'calm':Calm_choices[0][0],
             })
-            user = request.user  
-            return render(request, 'thesis_app/survey_page.html',context={'user':user,'form':form})
+            answer1  = form.save(commit = False)
+            answer1.user_id = request.user  
+            answer1.save()
+            return redirect('thesis_app:survey_page_2')
     else :
         return redirect('thesis_app:login')
     user = request.user
@@ -40,6 +42,14 @@ def survey_page(request):
             })
     return render(request, 'thesis_app/survey_page.html',context={'user':user,'form':form})
 
+def survey_page_2(request):
+    context_txt = 'Hello to the survey_2'
+    return render(request,'thesis_app/survey_page_2.html',context = {'text':context_txt})
+
+
+
+
+
 
 def home(request):
     if request.method == "POST":
@@ -49,6 +59,7 @@ def home(request):
             new_user = authenticate(username=form.cleaned_data['username'],
                                     password=form.cleaned_data['password1'],
                                     )
+            new_user.save()
             login(request, new_user)
             return redirect('thesis_app:survey_page')
 
@@ -77,7 +88,8 @@ def logout_request(request):
 
 def login_request(request):
     if request.user.is_authenticated:
-        return render(request,'thesis_app/survey_page.html',context={'user':request.user})
+        # return redirect(request,'thesis_app/survey_page.html',context={'user':request.user})
+        return redirect('thesis_app:survey_page')
     else:
         if request.method == 'POST':
             form = AuthenticationForm(request,data = request.POST)

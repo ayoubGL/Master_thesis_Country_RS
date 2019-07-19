@@ -1,9 +1,82 @@
-{%load staticfiles %}
-<div class="container">
-    <p>
-        <form method="post" action=".">
-            {% csrf_token %} {{form.as_ul}}
-            <input type="submit">
-        </form>
-    </p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Country Dest</title>
+    {% load staticfiles %}
+    <!-- materialize core CSS -->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/costum.css'%}">
+    <link rel="stylesheet" href="{% static 'css/materialize.css'%}">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</head>
+
+<body id="page-top">
+    <!-- Navigation -->
+    <main>
+
+        <div class="navbar-fixed ">
+
+            <nav class="lighten-5 nav_bar">
+                <div class="nav-wrapper container">
+                    <a href="{% url 'thesis_app:home' %}" class="brand-logo"><img src="{%static 'img/dark3.png'%}" alt="" width="170"></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li>
+                            <span> <a class='blue-text text-darken-2' href="#how works">
+                                <h5>How Works</h5>
+                            </a></span>
+                        </li>
+                        <li>
+                            {% if user.is_authenticated %}
+                            <span>
+                                <a class='blue-text text-darken-2' href="{% url 'logout' %}">
+                                    <h5>Logout</h5>
+                                </a>
+                            </span> {% else %}<span>
+                            <a class='blue-text text-darken-2' href="{% url 'login'  %}">
+                                <h5>Login</h5>
+                            </a> </span>{% endif %}
+
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+        <br>
+        <br>
+        <h5>Please let us know a bit about yourself !</h5>
+
+        <p>
+            <form method="post" action=".">
+                {% csrf_token %} {{form.as_ul}}
+                <input type="submit">
+            </form>
+        </p>
+
+
+
+
+        <footer class="page-footer  nav_bar">
+            <div class="footer-copyright">
+                <div class="container">
+                    <span class="white-text text-darken-2 center" href="#!">© 2019 Copyright Text</span>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+</body>
+
+</html>
