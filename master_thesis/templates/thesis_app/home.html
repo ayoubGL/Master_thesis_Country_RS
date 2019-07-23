@@ -1,0 +1,58 @@
+{% extends "thesis_app/header.html" %} {% load widget_tweaks %} {% block content %}
+<div class="row">
+    <div class="col-md-6 div-cl">
+        <div class="panel transbox" style="color:#000000;">
+            <div class="div-form ">
+                <h4 style="color: rgb(12, 12, 12);text-align: center; " class="vc_custom_heading font-weight-bold ">Which Country should you live in ?</h4>
+                <br/>
+                <h5 style="text-align: center;opacity: 0.9; ">Register to find out !</h5>
+                <br>
+                <form method="POST" action="">
+                    {% csrf_token %} {% for hidden_field in form.hidden_fields %} {{ hidden_field }} {% endfor %} {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %} {{ error }} {% endfor %}
+                    </div>
+                    {% endif %} {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        {{ field.label_tag }} {% if form.is_bound %} {% if field.errors %} {% render_field field class="form-control is-invalid" %} {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                        {% endfor %} {% else %} {% render_field field class="form-control is-valid" %} {% endif %} {% else %} {% render_field field class="form-control" %} {% endif %} {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small> {% endif %}
+                    </div>
+                    {% endfor %}
+
+
+                    <br>
+                    <br>
+
+                    <button type="submit" class="btn btn-success btn-block"> <i class="font-weight-bold">Submit</i></button>
+
+                </form>
+
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 div-cl-2 ">
+        <div class="panel transbox_desc " style="color:#ffffff;">
+            <div class="center div-tx ">
+                <p class="p0">
+                    This is a UNIBZ research project devoted to personalized rankings and recommendations in the educational domain.
+                </p>
+                <p class="p0 ">
+                    Respondent is asked to rate a few universities that are offered based on the geographic region they select. Based on these ratings the system would show three lists of potential universities the respondent might be interested in.</p>
+                <p class="p0">
+                    This Master thesis is undertaken by <a href="http://dev.gatofalante.com/ " target="_blank " rel="noopener ">Anna Lambrix</a> with the supervision of the project by <a href="http://www.inf.unibz.it/~nelioini/ " target="_blank
+            " rel="noopener ">Nabil El Ioini</a> and <a href="https://www.linkedin.com/in/mehdielahi/ " target="_blank " rel="noopener ">Mehdi Elahi.</a></p>
+                <p class="p0">To learn more about how it works <a href="http://thesis.gatofalante.com/how-it-works/ ">click here</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

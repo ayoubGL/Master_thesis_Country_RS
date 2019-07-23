@@ -1,0 +1,173 @@
+{% extends "thesis_app/header.html" %} {%block content %} {% load crispy_forms_tags %} {% load staticfiles %} {% load crispy_forms_field %}
+
+<div class="container " style="color:#000000; ">
+    <br>
+    <div class="col-lg-12 col-lg-offset-4 transbox_sur">
+        <br>
+        <div class="div-cl-4">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 35%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                    <b class="font-weight-bold" style="font-size: 15px;">Step 2 out of 6</b>
+                </div>
+            </div>
+            <br>
+            <br>
+            <h3>The most important features ? </h3>
+            <br>
+            <h5>Select <b>at least 3 features</b> that make you decide to emigrate.</h5>
+            <br>
+            <br>
+            <p>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <!---------------- Gender  --------------->
+                    <br> {% for field, error in form.errors.items %} {% if field != '__all__' %}{% endif %} <b style="color: #ec0c0c;font-size: 20px !important;">{{ error | striptags }}</b> {% endfor %}
+                    <div class="container">
+
+                        <br>
+                        <br>
+                        <label for="features" class="font-weight-bold left"> Features<i class="text-primary">*</i> :</label> <br>
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <div class="btn btn-outline-dark" for="id_features_0">
+                                    <label for="id_features_0">
+                                        {{form.features.0.tag}} 
+                                        <span class="test">
+                                            {{form.features.0.choice_label}}
+                                        </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_1">
+                                    <label for="id_features_1">
+                                        {{form.features.1.tag}}
+                                           <span class="test"> 
+                                               {{form.features.1.choice_label}}
+                                            </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_2">
+                                    <label for="id_features_2"> 
+                                        {{form.features.2.tag}}
+                                        <span class="test">
+                                            {{form.features.2.choice_label}}
+                                        </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_3">
+                                    <label for="id_features_3">
+                                        {{form.features.3.tag}}
+                                        <span class="test">
+                                        {{form.features.3.choice_label}}
+                                        </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_4">
+                                    <label for="id_features_4">{{form.features.4.tag}}
+                                        <span class="test">
+                                            {{form.features.4.choice_label}}
+                                        </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_5">
+                                    <label for="id_features_5">
+                                        {{form.features.5.tag}}
+                                        <span class="test">
+                                            {{form.features.5.choice_label}}
+                                        </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                            </div>
+                            <div class="col-sm-6 ">
+                                <div class="btn btn-outline-dark" for="id_features_6">
+                                    <label for="id_features_6">
+                                        {{form.features.6.tag}}
+                                    <span class="test">
+                                        {{form.features.6.choice_label}}
+                                    </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_7">
+                                    <label for="id_features_7">
+                                        {{form.features.7.tag}}
+                                    <span class="test">
+                                        {{form.features.7.choice_label}}
+                                    </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_8">
+                                    <label for="id_features_8">
+                                        {{form.features.8.tag}}
+                                        <span class="test">
+                                        {{form.features.8.choice_label}}
+                                        </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_9">
+                                    <label for="id_features_9">
+                                        {{form.features.9.tag}}
+                                    <span class="test">
+                                        {{form.features.9.choice_label}}
+                                    </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_10">
+                                    <label for="id_features_10">
+                                        {{form.features.10.tag}}
+                                        <span class="test">
+                                        {{form.features.10.choice_label}}
+                                        </span>
+                                    </label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="btn btn-outline-dark" for="id_features_11">
+                                    <label for="id_features_11">
+                                            {{form.features.11.tag}}
+                                            <span class="test">
+                                                {{form.features.11.choice_label}}
+                                            </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <!-- ------------------------------- -->
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <button type="submit " class="btn btn-block btn-outline-primary font-weight-bold "> <i><h5 class="font-weight-bold ">Next<h5></i></button>
+                </form>
+            </p>
+            <br>
+            <br>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "thesis_app/header.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="col-md-6 div-cl">
+    <div class="panel transbox" style="color:#000000;">
+        <div class="div-form ">
+            <form method="POST">
+                {% csrf_token %} {{form|crispy}}
+
+                <br> {% for message in messages %}
+
+                <div style="color: #ec0c0c;font-size: 25px !important;">
+                    <a href="# " data-dismiss="alert "></a> {{ message }}
+
+                </div>
+                {% endfor %}
+                <br>
+
+                <button type="submit " class="btn  btn-block btn-success font-weight-bold"> <i class="font-weight-bold"><h5>Login<h5></i></button>
+                <br>
+                <br>
+
+                <p>Don't have an account? Create one <a href="{% url 'thesis_app:home' %} ">here</a></p>
+
+
+
+                <br>
+
+
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock %}

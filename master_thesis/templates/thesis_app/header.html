@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Your Destination</title>
+
+    <!-- CSS -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/media-queries.css' %}">
+
+
+
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="{% static 'ico/favicon.png'%}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'ico/apple-touch-icon-114-precomposed.png'%}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'ico/apple-touch-icon-57-precomposed.png'%}">
+
+
+</head>
+
+<body id="page-top" class="body_page">
+    <!-- Navigation -->
+
+
+    <div class="navbar-fixed">
+
+        <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
+            <div class="container">
+                <a href="{% url 'thesis_app:home' %}" class="brand-logo"><img src="{% static 'img/logo.png' %}" alt="" width="140"></a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <span> <a class='nav-link btn btn-outline-info' href="#how works">
+                                            <h5>How Works</h5>
+                                        
+                                        
+                                        </a></span>
+                        </li>
+                        <li class="nav-item">
+                            {% if user.is_authenticated %}
+                            <span>
+                                            <a class='nav-link btn btn-outline-info' href="{% url 'logout' %}">
+                                                <h5>Logout</h5>
+                                            </a>
+                                        </span> {% else %}<span>
+                                        <a class='nav-link btn btn-outline-info' href="{% url 'login'  %}">
+                                            <h5>Login</h5>
+                                        </a> </span>{% endif %}
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class='container-fuild'>
+
+        {% block content %} {% endblock %}
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+    <footer class="footer-container">
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    all you need is <img src="{% static 'img/peace.png' %}" width="50px"> 2019 &copy;
+                </div>
+
+            </div>
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+.body_page {
+    background: url('../img/backgrounds/1.jpeg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.transbox {
+    background-color: rrgba(255, 0, 0, 0.2);
+    filter: alpha(opacity=10);
+}
+
+.transbox_desc {
+    background-color: #040a0e;
+    opacity: 0.8;
+    filter: alpha(opacity=10);
+}
