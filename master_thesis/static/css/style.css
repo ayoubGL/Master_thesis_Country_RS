@@ -140,7 +140,7 @@
     }
     
     .transbox_sur {
-        background-color: rgba(230, 233, 233, 0.7);
+        background-color: rgb(242, 248, 248);
     }
     
     .div-cl-1 {
@@ -189,6 +189,18 @@
     
     input:checked+.test {
         font-weight: bold;
-        color: rgb(247, 8, 8);
+        color: rgb(12, 130, 248);
         text-transform: uppercase;
+    }
+    /* .body_page_survey {
+        background-color: #888 no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    } */
+    
+    .django-starfield {
+        height: 200px;
+        width: 50%;
     }

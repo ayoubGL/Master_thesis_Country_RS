@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'thesis_app',
     'widget_tweaks',
     'multiselectfield',
+    'django_starfield'
+    
 ]
 
 MIDDLEWARE = [

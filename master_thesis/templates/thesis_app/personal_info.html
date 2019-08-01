@@ -1,129 +1,238 @@
-{% extends "thesis_app/header.html" %} {%block content %} {% load crispy_forms_tags %} {% load staticfiles %} {% load crispy_forms_field %}
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="container " style="color:#000000; ">
-    <br>
-    <div class="col-lg-12 col-lg-offset-4 transbox_sur">
-        <br>
-        <div class="div-cl-4">
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                    <b class="font-weight-bold" style="font-size: 15px;">Step 1 out of 6</b>
+<head>
+
+    <meta charset="utf-8">
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Your Destination</title>
+
+    <!-- CSS -->
+    {% load staticfiles %} {% load crispy_forms_tags %} {% load crispy_forms_field %}
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,600">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/media-queries.css' %}">
+
+
+
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="{% static 'ico/favicon.png'%}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'ico/apple-touch-icon-114-precomposed.png'%}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'ico/apple-touch-icon-57-precomposed.png'%}">
+
+
+</head>
+
+<body id="page-top" style="background-color: rgb(253, 253, 253, 0.945);">
+    <!-- Navigation -->
+
+
+    <div class="navbar-fixed">
+
+        <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
+            <div class="container">
+                <a href="{% url 'thesis_app:home' %}" class="brand-logo"><img src="{% static 'img/logo.png' %}" alt="" width="140"></a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <span> <a class='nav-link btn btn-outline-info' href="#how works">
+                                            <h5>How Works</h5>
+                                        
+                                        
+                                        </a></span>
+                        </li>
+                        <li class="nav-item">
+                            {% if user.is_authenticated %}
+                            <span>
+                                            <a class='nav-link btn btn-outline-info' href="{% url 'logout' %}">
+                                                <h5>Logout</h5>
+                                            </a>
+                                        </span> {% else %}<span>
+                                        <a class='nav-link btn btn-outline-info' href="{% url 'login'  %}">
+                                            <h5>Login</h5>
+                                        </a> </span>{% endif %}
+
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <br>
-            <br>
-            <h3>Please let us know a bit about yourself !</h3>
-            <br>
-            <br>
-            <p>
-                <form method="POST" action="">
-                    {% csrf_token %}
-                    <!---------------- Gender  --------------->
-                    <div>
-                        <label for="gender" class="font-weight-bold"> Gender <i class="text-primary">*</i> :</label> <br>{% for radio in form.gender %}
-                        <fieldset>
-                            <div class="some-class">
-                                {{ radio}}
-                            </div>
-                            {% endfor %}
-                        </fieldset>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="age" class="font-weight-bold left"> Age<i class="text-primary">*</i> :</label>
-                        <br>
-                        <fieldset>
-                            <div>
-                                {{form.age}}
-                            </div>
-                        </fieldset>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="age" class="font-weight-bold left"> Country <i class="text-primary">*</i> :</label>
-                        <br>
-                        <fieldset>
-                            <div>
-                                {{form.country}}
-                            </div>
-                        </fieldset>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="gender" class="font-weight-bold"> I see myself as open to experience, imaginative <i class="text-primary">*</i> :</label>
-                        <br>
-                        <br>{% for radio in form.imaginative %}
-                        <fieldset>
-                            <div class="some-class">
-                                {{ radio}}
-                            </div>
-                            {% endfor %}
-                        </fieldset>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="gender" class="font-weight-bold"> I see myself as dependable, organized <i class="text-primary">*</i> :</label>
-                        <br>
-                        <br>{% for radio in form.organized %}
-                        <fieldset>
-                            <div class="some-class">
-                                {{ radio}}
-                            </div>
-                            {% endfor %}
-                        </fieldset>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="gender" class="font-weight-bold"> I see myself as extroverted, enthusiastic <i class="text-primary">*</i> :</label>
-                        <br>
-                        <br>{% for radio in form.enthusiastic %}
-                        <fieldset>
-                            <div class="some-class">
-                                {{ radio}}
-                            </div>
-                            {% endfor %}
-                        </fieldset>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="gender" class="font-weight-bold"> I see myself as agreeable, kind <i class="text-primary">*</i> :</label>
-                        <br>
-                        <br>{% for radio in form.kind %}
-                        <fieldset>
-                            <div class="some-class">
-                                {{ radio}}
-                            </div>
-                            {% endfor %}
-                        </fieldset>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="gender" class="font-weight-bold"> I see myself as emotionally stable, calm <i class="text-primary">*</i> :</label>
-                        <br>
-                        <br>{% for radio in form.calm %}
-                        <fieldset>
-                            <div class="some-class">
-                                {{ radio}}
-                            </div>
-                            {% endfor %}
-                        </fieldset>
-                    </div>
-
-
-
-
-
-                    <!-- ------------------------------ -->
-
-                    <!-- ------------------------------- -->
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-block btn-outline-primary font-weight-bold "> <i><h5 class="font-weight-bold">Next<h5></i></button>
-                </form>
-            </p>
-            <br>
-            <br>
-        </div>
+        </nav>
     </div>
-</div>
-{% endblock %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class='container-fuild'>
+        <div class="container " style="color:#000000; ">
+            <br>
+            <div class="col-lg-12 col-lg-offset-4">
+                <br>
+                <div class="div-cl-4">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                            <b class="font-weight-bold" style="font-size: 15px;">Step 1 out of 6</b>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <h3>Please let us know a bit about yourself !</h3>
+                    <br>
+                    <br>
+                    <p>
+                        <form method="POST" action="">
+                            {% csrf_token %}
+
+                            <div class="container">
+                                <!---------------- Gender  --------------->
+                                <div>
+                                    <label for="gender" class="font-weight-bold"> Gender <i class="text-primary">*</i> :</label> <br>{% for radio in form.gender %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="age" class="font-weight-bold left"> Age<i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <fieldset>
+                                        <div>
+                                            {{form.age}}
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="age" class="font-weight-bold left"> Country <i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <fieldset>
+                                        <div>
+                                            {{form.country}}
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="gender" class="font-weight-bold"> I see myself as open to experience, imaginative <i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>{% for radio in form.imaginative %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="gender" class="font-weight-bold"> I see myself as dependable, organized <i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>{% for radio in form.organized %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="gender" class="font-weight-bold"> I see myself as extroverted, enthusiastic <i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>{% for radio in form.enthusiastic %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="gender" class="font-weight-bold"> I see myself as agreeable, kind <i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>{% for radio in form.kind %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <div>
+                                    <label for="gender" class="font-weight-bold"> I see myself as emotionally stable, calm <i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>{% for radio in form.calm %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+
+
+
+
+
+                                <!-- ------------------------------ -->
+
+                                <!-- ------------------------------- -->
+                                <br>
+                                <br>
+                                <button type="submit" class="btn btn-block btn-outline-primary font-weight-bold "> <i><h5 class="font-weight-bold">Next<h5></i></button>
+                            </div>
+                        </form>
+
+                    </p>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+    <footer class="footer-container">
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    all you need is <img src="{% static 'img/peace.png' %}" width="50px"> 2019 &copy;
+                </div>
+
+            </div>
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

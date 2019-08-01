@@ -12,4 +12,6 @@ urlpatterns = [
     path('features/',views.features, name = 'features'),
     path('countries_rate/',views.countries_rate, name = 'countries_rate'),
     
+
+    
 ]
