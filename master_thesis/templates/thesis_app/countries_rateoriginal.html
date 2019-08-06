@@ -67,6 +67,12 @@
                 return true;
             }
 
+
+
+
+
+
+
         }
     </script>
 
@@ -85,7 +91,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <span> <a class="nav-link btn btn-outline-info" href="#how works">
+                            <span> <a class='nav-link btn btn-outline-info' href="#how works">
                                             <h5>How Works</h5>
                                         
                                         
@@ -94,11 +100,11 @@
                         <li class="nav-item">
                             {% if user.is_authenticated %}
                             <span>
-                                            <a class="nav-link btn btn-outline-info" href="{% url 'logout' %}">
+                                            <a class='nav-link btn btn-outline-info' href="{% url 'logout' %}">
                                                 <h5>Logout</h5>
                                             </a>
                                         </span> {% else %}<span>
-                                        <a class="nav-link btn btn-outline-info" href="{% url 'login'  %}">
+                                        <a class='nav-link btn btn-outline-info' href="{% url 'login'  %}">
                                             <h5>Login</h5>
                                         </a> </span>{% endif %}
 
@@ -115,7 +121,7 @@
     <br>
     <br>
     <br>
-    <div class="container-fuild">
+    <div class='container-fuild'>
         <!-- ------------------------------------------------------------------- -->
 
         <div class="container " style="color:#000000; ">
@@ -136,6 +142,12 @@
                     <br>
                     <br>
                     <p>
+
+
+
+
+
+
                         <form method="POST" action="" name="myForm" onsubmit="return validateForm()">
                             {{user}} <br>{% csrf_token %} {{ formset.management_form|crispy }}
                             <div style="color: #ec0c0c;font-size: 20px !important;" id="error"></div>
@@ -161,22 +173,23 @@
                                 {% endfor %}
                             </div>
 
-                            <input title="add countries" type="submit" name="Add_More" value="Add More" class="btn btn-success font-weight-bold" />
+
+
                             <br>
                             <br>
-                            <br>
-                            <br>
-                            <button type="submit" name="submit" class="btn btn-block btn-outline-primary font-weight-bold "> <i><h5 class="font-weight-bold ">Next</h5></i></button>
+                            <button type="submit " class="btn btn-block btn-outline-primary font-weight-bold "> <i><h5 class="font-weight-bold ">Next</h5></i></button>
                         </form>
+
                     </p>
                     <br>
-                    <p id="total_form">{{total}}</p>
+
+
 
                 </div>
 
             </div>
         </div>
-
+        <!-- ------------------------------------------------------------------- -->
     </div>
 
     <br>

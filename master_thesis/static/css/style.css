@@ -200,7 +200,31 @@
         background-size: cover;
     } */
     
-    .django-starfield {
-        height: 200px;
-        width: 50%;
+    .row.display-flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .row.display-flex>[class*='col-'] {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .django-starfield:not(:checked)>input {
+        position: absolute;
+        top: -9999px;
+    }
+    
+    .django-starfield:not(:checked)>label {
+        float: right;
+        width: 2em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 15px;
+        color: #00f5fd;
+    }
+    
+    .django-starfield>input:checked~label {
+        color: #0400fd;
     }

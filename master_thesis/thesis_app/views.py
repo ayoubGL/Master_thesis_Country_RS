@@ -6,12 +6,13 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
-from .forms import step_1Form, step_2Form,user_rateForm,country_nameFrom,user_rateForm
+from .forms import step_1Form, step_2Form,user_rateForm,countriesFormset
 from .choices import *
 import pandas as pd
 import csv
-from .models import user_rate
+from .models import user_rate,country_name
 from django.forms import formset_factory
+from django import forms
 
 
 
@@ -53,54 +54,48 @@ def features(request):
 
 
 
-
+query = country_name.objects.all()
 def countries_rate(request):
     if request.user.is_authenticated:
-        countriesFormset = formset_factory(user_rateForm, extra = 2,max_num=1)
+        formset = countriesFormset(request.POST or None)
         if request.method == 'POST':
-            #form = user_rateForm(request.POST or None)
-            form  = countriesFormset(request.POST)
-            #print(form.errors,'---------------- errors---------')
-            if form.is_valid():
-                print("---------------------------------------------->{}".format(len(form)))
-                for inst in form:
-                    rate  = user_rate()
-                    if inst.is_valid():
-                        countries_name_id  = inst.cleaned_data['countries_name_id']
-                        country_rating = inst.cleaned_data['country_rating']
-                        rate.user_id = request.user
-                        rate.countries_name_id = countries_name_id
-                        rate.country_rating = country_rating
-                        rate.save()
-                return HttpResponse("your are here")
+            if 'Add_More' in request.POST:
+                print('--- add more in post -----')
+                cp = request.POST.copy()
+                cp['form-TOTAL_FORMS'] = int(cp['form-TOTAL_FORMS'])+ 1
+                formset = countriesFormset(cp,prefix='form')
+                total = cp['form-TOTAL_FORMS']
+                print('total forms {}---------------------',format(total))
+                return render(request,'thesis_app/countries_rate.html', context={
+        'formset':formset,
+        'total':total
+        })
+            elif 'submit' in request.POST:
+                if formset.is_valid():
+                    for inst in formset:
+                        rate  = user_rate()
+                        if inst.is_valid():
+                            
+                            countries_name_id  = inst.cleaned_data.get('countries_name_id')
+                            country_rating = inst.cleaned_data.get('country_rating')
+                            rate.user_id = request.user
+                            rate.countries_name_id = countries_name_id
+                            rate.country_rating = country_rating
+                            rate.save()
+                            
+                    return HttpResponse("your are here")
+        
     else:
-        return redirect('theisis_app:login')            
+        return redirect('thesis_app:login')            
     user = request.user
-    form = formset_factory(user_rateForm, extra =2)
+    formset = countriesFormset(request.POST or None)
     return render(request,'thesis_app/countries_rate.html', context={
         'user':user,
-        'form':form,
+        'formset':formset
         }
     )
 
-# def rate_countries(request):
-#     if request.user_is_authenticated:
-        
-    
-        
-        
-        
-        
-        
-        # user = request.user
-        # my_csv = pd.read_csv("static/new_countries.csv")
-        # head_csv = my_csv.head()
-        # for step in step_2.objects.all():
-        #     if step.user_id == user:
-        #         features_user = step.features 
-        #         print(list(features_user))
-        # return render(request,'thesis_app/countries_rate.html', context={'user':request.user,'features':features_user, 'csv':head_csv})
-
+# --------------- Test --------------------------
 
 
 

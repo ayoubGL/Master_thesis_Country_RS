@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'thesis_app',
     'widget_tweaks',
     'multiselectfield',
-    'django_starfield'
+    'django_starfield',
+    'likert_field',
     
 ]
 

@@ -8,6 +8,7 @@ from multiselectfield import MultiSelectField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .choices import *
 
+
 # ---------------------------------------------- Personal Information ------------------------
 class step_1(models.Model):
     
@@ -158,6 +159,7 @@ class step_1(models.Model):
     class Meta:
         verbose_name= 'step_1'
         ordering = ['user_id']
+        db_table = 'Personal_information'
     def __str__(self):
         return self.title
     
@@ -180,15 +182,16 @@ class step_2(models.Model):
     features = MultiSelectField(choices=features_choices,
                                  min_choices=3,
                                  max_length=200)
-
+    class Meta:
+        verbose_name= 'step_2'
+        ordering = ['user_id']
+        db_table = 'Features'
+    def __str__(self):
+        return self.title
 
 # ----------------------------------------------  countries name -------------------------------
 class country_name(models.Model):
-    # title = models.CharField(
-    #     max_length = 20,
-    #     editable = False,
-    #     default = 'country_name'
-    # )
+
     
     country_name = models.CharField(
         blank=False,
@@ -196,12 +199,13 @@ class country_name(models.Model):
         default = country_name[0][0],
         choices = country_name
     )
-    #country_rating = models.IntegerField(default = 0,validators=[MinValueValidator(0), MaxValueValidator(5)])
+
     def __str__(self):
         return self.country_name
     
     class Meta:
-        verbose_name = "country_name"
+        db_table = 'Countries'
+    
 
 # ----------------------------------------------  user rating -------------------------------
 class user_rate(models.Model):
@@ -220,11 +224,13 @@ class user_rate(models.Model):
     
     countries_name_id = models.ForeignKey(
         country_name,
+        default=1,
         blank=False,
-        default = 1,
         on_delete = models.CASCADE
     )
-    country_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    country_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)],blank=False, default=0)
+    
+
     
     def __str__(self):
         return "{}_{}".format(self.user_id.username,self.countries_name_id.country_name)
@@ -232,40 +238,9 @@ class user_rate(models.Model):
     class Meta:
         unique_together = (('countries_name_id', 'user_id'),)
         verbose_name = "user_rate"
+        db_table = 'user_ratings'
 
     
 
 
-
-# class step_3(models.Model):
-#     title = models.CharField(
-#         max_length = 20, 
-#         editable=False,
-#         default = 'step3'
-#     )
-    
-#     # user_rate = models.ManyToManyField(
-#     #     User
-#     # )
-    
-#     user_id= models.ForeignKey(
-#         User,
-#         default = 1,
-#         related_name='current_user',
-#         on_delete=models.CASCADE
-#     )
-    
-#     countries = CountryField(multiple = True,
-#                            default=None,
-                           
-#                             blank=False)
-    
-#     country_rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
-    
-#     class Meta:
-#         ordering = ["country_rate"]
-#         verbose_name = 'step_3'
-#     def __str__(self):
-#         return self.title
-
-
+# -------------- Test ------------------

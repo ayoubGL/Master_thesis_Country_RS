@@ -12,6 +12,10 @@ User = get_user_model()
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import  Row, Field
 
+from django.forms.formsets import BaseFormSet
+from django.forms import formset_factory  
+
+
 
 
 
@@ -93,39 +97,22 @@ class step_2Form(forms.ModelForm):
 
 
 query = country_name.objects.all()
+''
 class user_rateForm(forms.Form):
-    countries_name_id = forms.ModelChoiceField(queryset=query,required = True) 
-    country_rating =  forms.IntegerField(required=True,widget=Stars(colour='#0BDDFD',attrs={'size':'40px'}))
-    # def save(self,commit = True):
-    #     #user_rate = super(user_rateForm,self).save(commit = False)
-    #     user_rate.country_rating = self.cleaned_data['country_rating']
-    #     user_rate.countries_name_id = self.cleaned_data['countries_name_id']
-    #     if commit:
-    #         user_rate.save(self.user_rate)
-    #     return user_rate
+    countries_name_id = forms.ModelChoiceField(queryset=query,required=True) 
+    country_rating =  forms.IntegerField(required=True,widget=Stars())
+    
+    def __init__(self, *args, **kwargs):
+        super(user_rateForm, self).__init__(*args, **kwargs)
+        self.fields['countries_name_id'].label = False
+        self.fields['country_rating'].label = False
+        self.fields['countries_name_id'].required = True
+        self.fields['country_rating'].required = True
+        self.fields['country_rating'].error_messages['required'] = 'I require that you fill out this field'
+
+
+        
+                 
+countriesFormset = formset_factory(user_rateForm, extra = 5,max_num=20)              
+    
   
-    # class Meta:
-    #     model = user_rate
-    #     exclude = ('title','user_id','user_rate')
-    
-
-
-class country_nameFrom(forms.ModelForm):
-    class Meta:
-        model = country_name
-        exclude = ('title',)
-        
- 
-    
-# class countries_nameForm(forms.ModelForm):
-#     country_rating = forms.IntegerField(widget=Stars(colour='#0BDDFD'))
-#     class Meta:
-#         model = countries_name
-#         exclude =('title','user_rate_id')
-        
-    
-# class user_rateForm(forms.ModelForm):
-    
-#     class Meta:
-#         model = user_rate
-#         exclude = ('title','user_id','countries_name_id',)
