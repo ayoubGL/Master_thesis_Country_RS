@@ -33,7 +33,10 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'ico/apple-touch-icon-72-precomposed.png' %}">
     <link rel="apple-touch-icon-precomposed" href="{% static 'ico/apple-touch-icon-57-precomposed.png'%}">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
     <script type="text/javascript" language="javascript">
+        //----- at least 5 countries -----------
         function validateForm() {
             var c0 = document.forms["myForm"]["form-0-countries_name_id"].value;
             var c1 = document.forms["myForm"]["form-1-countries_name_id"].value;
@@ -47,29 +50,39 @@
             var r3 = document.forms["myForm"]["form-3-country_rating"].value;
             var r4 = document.forms["myForm"]["form-4-country_rating"].value;
 
+
+
+
+
             if (c0 == "" || c1 == "" || c2 == "" || c3 == "" || c4 == "" || r0 == "" || r1 == "" || r2 == "" || c3 == "" || c4 == "") {
-                document.getElementById('error').innerHTML = " Please rate at least 5 counties !!";
-                return false;
-            } else if (c0 == c1 || c1 == c0 ||
-                c0 == c2 || c2 == c0 ||
-                c0 == c3 || c3 == c0 ||
-                c0 == c4 || c4 == c0 ||
-                c1 == c2 || c2 == c1 ||
-                c1 == c3 || c3 == c1 ||
-                c1 == c4 || c4 == c1 ||
-                c2 == c3 || c3 == c2 ||
-                c2 == c4 || c4 == c2 ||
-                c3 == c4 || c4 == c3) {
-                document.getElementById('error_2').innerHTML = " Duplicate countries !! ";
-                document.getElementById('error').innerHTML = "";
+                document.getElementById('error').innerHTML = " Please rate at least 5 countries";
                 return false;
             } else {
                 return true;
             }
 
-        }
-    </script>
+        };
 
+        //-------------- Countries duplication test  
+        $(function() {
+            var s = new RegExp()
+
+            $("select[name*='form-']").change(function() {
+
+                var $current = $(this);
+
+                $("select[name*='form-']").each(function() {
+                    if ($(this).val() == $current.val() && $(this).attr('id') != $current.attr('id')) {
+                        $current.val('');
+                        return false;
+                    } else {
+                        return true;
+                    }
+
+                });
+            });
+        });
+    </script>
 
 </head>
 
@@ -137,9 +150,13 @@
                     <br>
                     <p>
                         <form method="POST" action="" name="myForm" onsubmit="return validateForm()">
-                            {{user}} <br>{% csrf_token %} {{ formset.management_form|crispy }}
-                            <div style="color: #ec0c0c;font-size: 20px !important;" id="error"></div>
-                            <div style="color: #ec0c0c;font-size: 20px !important;" id="error_2"></div>
+                            <br>{% csrf_token %} {{ formset.management_form|crispy }}
+                            <div class="container">
+                                <div style="color: #ec0c0c;font-size: 20px !important;" id="error"></div>
+                                <div style="color: #ec0c0c;font-size: 20px !important;" id="error_2"></div>
+                                <br>
+                                <br>
+                            </div>
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col font-weight-bold"> Country Name <i class="text-primary ">*</i></div>
