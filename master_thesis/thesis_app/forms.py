@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User
-from .models import step_1, step_2,user_rate,country_name
+from .models import step_1, step_2,country_name,UsabilitySurvey
 from django.contrib.auth import get_user_model
 from django_starfield import Stars
 from django_countries.fields import CountryField
@@ -77,8 +77,6 @@ class step_1Form(forms.ModelForm):
             'kind':'I see myself as agreeable, kind',
             'calm':'I see myself as emotionally stable, calm',
         }
-        
-        
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
     helper.label_class = "col-md-4"
@@ -111,8 +109,34 @@ class user_rateForm(forms.Form):
         self.fields['country_rating'].error_messages['required'] = 'I require that you fill out this field'
 
 
-        
-                 
+                         
 countriesFormset = formset_factory(user_rateForm, extra = 5,max_num=20)              
+
     
-  
+class UsabilitySurveyForm(forms.ModelForm):
+    class Meta:
+        model = UsabilitySurvey
+        exclude = ('title', 'user_id')
+        widgets = {     
+            'usage_frequency':forms.RadioSelect(),
+            'system_complexity':forms.RadioSelect(),
+            'usage_ease':forms.RadioSelect(),
+            'need_help':forms.RadioSelect(),
+            'functions_integrated':forms.RadioSelect(),
+            'system_inconsistency':forms.RadioSelect(),
+            'learn_to_use':forms.RadioSelect(),
+            'system_inconvenient':forms.RadioSelect(),
+            'confident_level':forms.RadioSelect(),
+            'learning_before':forms.RadioSelect(),
+            'comment':forms.Textarea(),
+            'email':forms.EmailInput(),
+        }   
+        labels  = {
+            'comment': '',
+            'email':'',
+        }
+        
+    helper = FormHelper()
+    helper.form_class = 'form-horizontal'
+    helper.label_class = "col-md-4"
+    helper.field_class = "col-md-8"

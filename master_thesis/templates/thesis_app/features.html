@@ -28,6 +28,28 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'ico/apple-touch-icon-114-precomposed.png'%}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'ico/apple-touch-icon-72-precomposed.png' %}">
     <link rel="apple-touch-icon-precomposed" href="{% static 'ico/apple-touch-icon-57-precomposed.png'%}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        /*Scroll to top when arrow up clicked BEGIN*/
+        $(window).scroll(function() {
+            var height = $(window).scrollTop();
+            if (height > 100) {
+                $('#back2Top').fadeIn();
+            } else {
+                $('#back2Top').fadeOut();
+            }
+        });
+        $(document).ready(function() {
+            $("#back2Top").click(function(event) {
+                event.preventDefault();
+                $("html, body").animate({
+                    scrollTop: 0
+                }, "slow");
+                return false;
+            });
+        }); /*Scroll to top when arrow up clicked END*/
+    </script>
 
 
 </head>
@@ -44,7 +66,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <span> <a class="nav-link btn btn-outline-info" href="#how works">
+                            <span> <a class="nav-link btn btn-outline-info" href="{% url 'thesis_app:howWorks' %}">
                                             <h5>How Works</h5>
                                         
                                         
@@ -74,7 +96,7 @@
     <br>
     <br>
     <br>
-    <div class="container-fuild">
+    <div class="container-fluid">
         <!-- ------------------------------------------------------------------- -->
         <div class="container " style="color:#000000; ">
             <br>
@@ -83,7 +105,7 @@
                 <div class="div-cl-4">
                     <div class="progress">
                         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 35%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                            <b class="font-weight-bold" style="font-size: 15px;">Step 2 out of 6</b>
+                            <b class="font-weight-bold" style="font-size: 15px;">Step 2 out of 5</b>
                         </div>
                     </div>
                     <br>
@@ -237,7 +259,7 @@
                             <br>
                             <br>
                             <br>
-                            <button type="submit " class="btn btn-block btn-outline-primary font-weight-bold "> <i><h5 class="font-weight-bold ">Next<h5></i></button>
+                            <button type="submit" name="submit" class="btn btn-block btn-outline-primary"> <i><h5 class=" font-weight-bold"><br>Next<br></h5></i></button>
                         </form>
                     </p>
                     <br>
@@ -253,7 +275,7 @@
     <br>
     <br>
 
-
+    <a id="back2Top" title="Back to top" href="#">&#10148;</a>
     <footer class="footer-container">
 
         <div class="container">

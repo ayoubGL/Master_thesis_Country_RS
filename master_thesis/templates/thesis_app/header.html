@@ -27,7 +27,30 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'ico/apple-touch-icon-114-precomposed.png'%}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'ico/apple-touch-icon-72-precomposed.png' %}">
     <link rel="apple-touch-icon-precomposed" href="{% static 'ico/apple-touch-icon-57-precomposed.png'%}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        /*Scroll to top when arrow up clicked BEGIN*/
+        $(window).scroll(function() {
+            var height = $(window).scrollTop();
+            if (height > 100) {
+                $('#back2Top').fadeIn();
+            } else {
+                $('#back2Top').fadeOut();
+            }
+        });
+        $(document).ready(function() {
+            $("#back2Top").click(function(event) {
+                event.preventDefault();
+                $("html, body").animate({
+                    scrollTop: 0
+                }, "slow");
+                return false;
+            });
 
+        });
+        /*Scroll to top when arrow up clicked END*/
+    </script>
 
 </head>
 
@@ -43,7 +66,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <span> <a class='nav-link btn btn-outline-info' href="#how works">
+                            <span> <a class="nav-link btn btn-outline-info" href="{% url 'thesis_app:howWorks' %}">
                                             <h5>How Works</h5>
                                         
                                         
@@ -52,11 +75,11 @@
                         <li class="nav-item">
                             {% if user.is_authenticated %}
                             <span>
-                                            <a class='nav-link btn btn-outline-info' href="{% url 'logout' %}">
+                                            <a class="nav-link btn btn-outline-info" href="{% url 'logout' %}">
                                                 <h5>Logout</h5>
                                             </a>
                                         </span> {% else %}<span>
-                                        <a class='nav-link btn btn-outline-info' href="{% url 'login'  %}">
+                                        <a class="nav-link btn btn-outline-info" href="{% url 'login'  %}">
                                             <h5>Login</h5>
                                         </a> </span>{% endif %}
 
@@ -73,7 +96,7 @@
     <br>
     <br>
     <br>
-    <div class='container-fuild'>
+    <div class="container-fuild">
 
         {% block content %} {% endblock %}
     </div>
@@ -85,7 +108,7 @@
 
 
 
-
+    <a id="back2Top" title="Back to top" href="#">&#10148;</a>
     <footer class="footer-container">
 
         <div class="container">

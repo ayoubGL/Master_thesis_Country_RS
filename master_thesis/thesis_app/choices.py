@@ -1,22 +1,41 @@
+ # ________________gender__________________
+Male ='Male'
+Female ='Female'
+refuse_to_disc = 'Refuse to disclose'
+# ________________Age__________________
+under_18 = 'under_18'
+b18_24 = '18_24'
+b25_35 = '25_35'
+b35_45 = '35_45'
+b45_55 = '45_55'
+bover_55 = 'Over_55'
+# ______________ choices  Level ___________
+Strongly_Disagree  ='Strongly Disagree'
+Disagree = 'Disagree'
+Neutral = 'Neutral'
+Agree = 'Agree'
+Strongly_Agree='Strongly Agree'
+
+
 Gender_choices = [
         ('Male','Male'),
         ('Female','Female'),
-        ('Refuse to disclose','refuse_to_disc')
+        ('refuse_to_disc','Refuse to disclose')
     ]
     
 Age_choices = [
-        ('Under 18','under_18'),
-        ('18 24','b18_24'),
-        ('25 35','b25_35'),
-        ('35 45','b35_45'),
-        ('45 55','b45_55'),
-        ('Over 55','bover_55')
+        ('under_18','Under 18'),
+        ('b18_24','18 24'),
+        ('b25_35','25 35'),
+        ('b35_45','35 45'),
+        ('b45_55','45 55'),
+        ('bover_55','Over 55')
     ]
-(Str_vb_D,Str_vb_N)= ('Strongly Disagree','Strongly_Disagree')
+(Str_vb_D,Str_vb_N)= ('Strongly_Disagree','Strongly Disagree')
 (Dis_vb_D,Dis_vb_N)= ('Disagree','Disagree')
 (Nt_vb_D,Nt_vb_N)= ('Natural','Natural')
 (Ag_vb_D,Ag_vb_N)= ('Agree','Agree')
-(StrAG_vb_D,StrAG_vb_N)= ('Strongly Agree','Strongly_Agree')
+(StrAG_vb_D,StrAG_vb_N)= ('Strongly_Agree','Strongly Agree')
 
 Imaginative_choices =[
         (Str_vb_D,Str_vb_N),
@@ -54,7 +73,6 @@ Calm_choices =[
         (StrAG_vb_D,StrAG_vb_N)
     ] 
 
-
 #------------------ Features -----------------------
 Education_quality ='Education Quality'
 Political_insecurity ='Political Insecurity'
@@ -83,6 +101,79 @@ features_choices = [
 (Shorter_Distance , 'Shorter Distance'),
 (Crime_rate, 'Crime Rate')
 ]
+
+# ------------------------ Usability Survey ------------------------
+
+usage_frequency =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ]
+system_complexity =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ]
+usage_ease =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ]
+need_help =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ]
+functions_integrated =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ] 
+system_inconsistency =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ]
+learn_to_use =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ] 
+system_inconvenient =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ] 
+confident_level =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ]
+learning_before =[
+        (Str_vb_D,Str_vb_N),
+        (Dis_vb_D,Dis_vb_N),
+        (Nt_vb_D,Nt_vb_N),
+        (Ag_vb_D,Ag_vb_N),
+        (StrAG_vb_D,StrAG_vb_N)
+    ] 
 
 
 # ------------------------ Countries ------------------------

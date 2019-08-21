@@ -6,14 +6,14 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
-from .forms import step_1Form, step_2Form,user_rateForm,countriesFormset
+from .forms import step_1Form, step_2Form,countriesFormset,UsabilitySurveyForm
 from .choices import *
-import pandas as pd
-import csv
-from .models import user_rate,country_name
+from .models import user_rate,country_name,step_1,step_2
 from django.forms import formset_factory
 from django import forms
 
+
+query = country_name.objects.all()
 
 
 #------------------------------- Personal Information -------------------
@@ -26,6 +26,7 @@ def personal_info(request):
                 answer1.user_id = request.user  
                 answer1.save()
                 return redirect('thesis_app:features')
+
     else :
         return redirect('thesis_app:login')
     user = request.user
@@ -35,6 +36,12 @@ def personal_info(request):
 
 #------------------------------- Features --------------------------------
 def features(request):
+    # ---------------------------
+    l = []
+    test = step_1.objects.all()
+    for s in test:
+        l.append(str(s.user_id))
+    # ---------------------------
     if request.user.is_authenticated :
         if request.method == 'POST':
             form = step_2Form(request.POST or None)
@@ -44,28 +51,25 @@ def features(request):
                 answer2.save()
                 return redirect('thesis_app:countries_rate')
     else:
-        return redirect('thesis_app:login')
+        return redirect('thesis_app:login')  
     user = request.user
     form = step_2Form(request.POST or None)        
     return render(request,'thesis_app/features.html',context = {'user':user,'form':form})
+    
 
 #------------------------------- Countries Rate --------------------------
 
-
-
-
-query = country_name.objects.all()
-def countries_rate(request):
+def countries_rate(request): 
     if request.user.is_authenticated:
         formset = countriesFormset(request.POST or None)
         if request.method == 'POST':
             if 'Add_More' in request.POST:
-                print('--- add more in post -----')
+                #print('--- add more in post -----')
                 cp = request.POST.copy()
                 cp['form-TOTAL_FORMS'] = int(cp['form-TOTAL_FORMS'])+ 1
                 formset = countriesFormset(cp,prefix='form')
                 total = cp['form-TOTAL_FORMS']
-                print('total forms {}---------------------',format(total))
+                #print('total forms {}---------------------',format(total))
                 return render(request,'thesis_app/countries_rate.html', context={
         'formset':formset,
         'total':total
@@ -74,8 +78,7 @@ def countries_rate(request):
                 if formset.is_valid():
                     for inst in formset:
                         rate  = user_rate()
-                        if inst.is_valid():
-                            
+                        if inst.is_valid():           
                             countries_name_id  = inst.cleaned_data.get('countries_name_id')
                             country_rating = inst.cleaned_data.get('country_rating')
                             rate.user_id = request.user
@@ -83,10 +86,11 @@ def countries_rate(request):
                             rate.country_rating = country_rating
                             rate.save()
                             
-                    return HttpResponse("your are here")
+                    return redirect('thesis_app:result')
         
     else:
         return redirect('thesis_app:login')            
+
     user = request.user
     formset = countriesFormset(request.POST or None)
     return render(request,'thesis_app/countries_rate.html', context={
@@ -94,15 +98,47 @@ def countries_rate(request):
         'formset':formset
         }
     )
+        
+#------------------------------- Result --------------------------
+rated = user_rate.objects.all()
+def result(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            if 'submit' in request.POST:
+                return redirect('thesis_app:UsabilitySurvey')
+    else:
+        return redirect('thesis_app:login')
+    user = request.user
+    rated_1_3 = rated[:3]
+    rated_3_6 = rated[3:6]
+    rated_6_9 = rated[6:9]
+    args = {"Fst_3":rated_1_3,"Snd_3":rated_3_6, "Trd_3":rated_6_9,"user":user}   
+    return render(request, 'thesis_app/result.html', args)
 
-# --------------- Test --------------------------
 
+#------------------------------- Usability Survey --------------------------
+def UsabilitySurvey(request):
+    if request.user.is_authenticated :
+        if request.method == 'POST':
+            form = UsabilitySurveyForm(request.POST or None)
+            if form.is_valid():
+                answer2 = form.save(commit = False)
+                answer2.user_id = request.user
+                answer2.save()
+                return redirect('thesis_app:thanks')
+    else:
+        return redirect('thesis_app:login')
+    user = request.user
+    form = UsabilitySurveyForm(request.POST or None)        
+    return render(request,'thesis_app/UsabilitySurvey.html',context = {'user':user,'form':form})
 
+#------------------------------- thanks --------------------------
 
+def thanks(request):
+    return render(request, 'thesis_app/thanks.html', context={})
 
-
-
-
+def howWorks(request):
+    return render(request,'thesis_app/howWorks.html', context={})
 
 
 
@@ -122,7 +158,10 @@ def home(request):
             new_user.user_id = request.user  
             new_user.save()
             login(request, new_user)
-            return redirect('thesis_app:personal_info')
+            base_url = 'thesis_app:personal_info'
+            #Chosen_url = form.cleaned_data['username']
+            return redirect(base_url)
+            
 
         else:
             for msg in form.error_messages:
@@ -136,10 +175,6 @@ def home(request):
     return render(request = request,
                   template_name = "thesis_app/home.html",
                   context={"form":form})
-
-
-
-    
 
 #------------------------------- logout -------------------------
 def logout_request(request):
@@ -167,5 +202,20 @@ def login_request(request):
                 messages.error(request, 'Invalid username or password')   
         form  = AuthenticationForm()
         return render(request, 'thesis_app/login.html',{'form':form})
+
+
+
         
     
+    
+    
+    
+    
+    
+    
+def error_404(request,exception):
+    data = {}
+    return render(request, 'thesis_app/404.html',data)
+def error_500(request):
+        data = {}
+        return render(request,'thesis_app/404.html', data)

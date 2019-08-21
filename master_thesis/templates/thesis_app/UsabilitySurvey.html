@@ -28,7 +28,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'ico/apple-touch-icon-114-precomposed.png'%}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'ico/apple-touch-icon-72-precomposed.png' %}">
     <link rel="apple-touch-icon-precomposed" href="{% static 'ico/apple-touch-icon-57-precomposed.png'%}">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     </script>
     <script type="text/javascript">
@@ -51,9 +50,11 @@
             });
         }); /*Scroll to top when arrow up clicked END*/
     </script>
+
+
 </head>
 
-<body id="page-top" style="background-color: rgb(253, 253, 253, 0.945);">
+<body id="page-top" style="background-color: rgba(253, 253, 253, 0.945);">
     <!-- Navigation -->
 
 
@@ -96,62 +97,34 @@
     <br>
     <br>
     <div class="container-fluid">
+        <!-- ------------------------------------------------------------------- -->
         <div class="container " style="color:#000000; ">
             <br>
             <div class="col-lg-12 col-lg-offset-4">
                 <br>
                 <div class="div-cl-4">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                            <b class="font-weight-bold" style="font-size: 15px;">Step 1 out of 5</b>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                            <b class="font-weight-bold" style="font-size: 15px;">This is the last one !!</b>
                         </div>
                     </div>
                     <br>
                     <br>
-                    <h3>Please let us know a bit about yourself !</h3>
+                    <h3>How did it go ? </h3>
+                    <br>
+                    <h5>Tell us how the process was - smooth or not ?</h5>
                     <br>
                     <br>
                     <p>
+
+
                         <form method="POST" action="">
                             {% csrf_token %}
-
                             <div class="container">
-                                <!---------------- Gender  --------------->
                                 <div>
-                                    <label for="gender" class="font-weight-bold"> Gender <i class="text-primary">*</i> :</label> <br>{% for radio in form.gender %}
-                                    <fieldset>
-                                        <div class="some-class">
-                                            {{ radio}}
-                                        </div>
-                                        {% endfor %}
-
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="age" class="font-weight-bold left"> Age<i class="text-primary">*</i> :</label>
+                                    <label for="usage_frequency " class="font-weight-bold"> I think that I would like to use this system frequently <i class="text-primary">*</i> :</label>
                                     <br>
-                                    <fieldset>
-                                        <div>
-                                            {{form.age}}
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="age" class="font-weight-bold left"> Country <i class="text-primary">*</i> :</label>
-                                    <br>
-                                    <fieldset>
-                                        <div>
-                                            {{form.country}}
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as open to experience, imaginative <i class="text-primary">*</i> :</label>
-                                    <br>
-                                    <br>{% for radio in form.imaginative %}
+                                    <br>{% for radio in form.usage_frequency %}
                                     <fieldset>
                                         <div class="some-class">
                                             {{ radio}}
@@ -160,10 +133,11 @@
                                     </fieldset>
                                 </div>
                                 <br>
+                                <br>
                                 <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as dependable, organized <i class="text-primary">*</i> :</label>
+                                    <label for="system_complexity" class="font-weight-bold"> I found the system unnecessarily complex <i class="text-primary">*</i> :</label>
                                     <br>
-                                    <br>{% for radio in form.organized %}
+                                    <br>{% for radio in form.system_complexity %}
                                     <fieldset>
                                         <div class="some-class">
                                             {{ radio}}
@@ -172,10 +146,11 @@
                                     </fieldset>
                                 </div>
                                 <br>
+                                <br>
                                 <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as extroverted, enthusiastic <i class="text-primary">*</i> :</label>
+                                    <label for="usage_ease" class="font-weight-bold"> I thought the system was easy to use <i class="text-primary">*</i> :</label>
                                     <br>
-                                    <br>{% for radio in form.enthusiastic %}
+                                    <br>{% for radio in form.usage_ease %}
                                     <fieldset>
                                         <div class="some-class">
                                             {{ radio}}
@@ -184,10 +159,11 @@
                                     </fieldset>
                                 </div>
                                 <br>
+                                <br>
                                 <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as agreeable, kind <i class="text-primary">*</i> :</label>
+                                    <label for="need_help" class="font-weight-bold">I think that I would need the support of a technical person to be able to use this system <i class="text-primary">*</i> :</label>
                                     <br>
-                                    <br>{% for radio in form.kind %}
+                                    <br>{% for radio in form.need_help %}
                                     <fieldset>
                                         <div class="some-class">
                                             {{ radio}}
@@ -196,10 +172,11 @@
                                     </fieldset>
                                 </div>
                                 <br>
+                                <br>
                                 <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as emotionally stable, calm <i class="text-primary">*</i> :</label>
+                                    <label for="functions_integrated" class="font-weight-bold">I found the various functions of this system were well integrated <i class="text-primary">*</i> :</label>
                                     <br>
-                                    <br>{% for radio in form.calm %}
+                                    <br>{% for radio in form.functions_integrated %}
                                     <fieldset>
                                         <div class="some-class">
                                             {{ radio}}
@@ -207,11 +184,100 @@
                                         {% endfor %}
                                     </fieldset>
                                 </div>
+                                <br>
+                                <br>
+                                <div>
+                                    <label for="system_inconsistency" class="font-weight-bold">I thought there was too much inconsistency in this system <i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>{% for radio in form.system_inconsistency %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <br>
+                                <div>
+                                    <label for="learn_to_use" class="font-weight-bold">I would imagine that most people would learn to use this system very quickly <i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>{% for radio in form.learn_to_use %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <br>
+                                <div>
+                                    <label for="system_inconvenient" class="font-weight-bold">I found the system very cumbersome (inconvenient) <i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>
+                                    <br>{% for radio in form.system_inconvenient %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <br>
+                                <div>
+                                    <label for="confident_level" class="font-weight-bold">I felt very confident using the system<i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>{% for radio in form.confident_level %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <br>
+
+
+                                <div>
+                                    <label for="learning_before" class="font-weight-bold"> I needed to learn a lot of things before I could get going with this system<i class="text-primary">*</i> :</label>
+                                    <br>
+                                    <br>
+
+                                    <br>{% for radio in form.learning_before %}
+                                    <fieldset>
+                                        <div class="some-class">
+                                            {{ radio}}
+                                        </div>
+                                        {% endfor %}
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <br>
+
+                                <div>
+                                    <label for="comment" class="font-weight-bold"> Any comments or suggestions ? :</label>
+                                    <br>
+                                    <br>
+                                    <fieldset>
+
+                                        {{ form.comment|as_crispy_field}}
+
+
+                                    </fieldset>
+                                </div>
+                                <br>
+                                <br>
+                                <div>
+                                    <label for="email" class="font-weight-bold"> Email :</label>
+                                    <br>
+                                    <br> {{ form.email|as_crispy_field}}
 
 
 
-
-
+                                </div>
                                 <!-- ------------------------------ -->
 
                                 <!-- ------------------------------- -->
@@ -222,24 +288,19 @@
                                 <button type="submit" name="submit" class="btn btn-block btn-outline-primary"> <i><h5 class=" font-weight-bold"><br>Next<br></h5></i></button>
                             </div>
                         </form>
-
                     </p>
                     <br>
                     <br>
                 </div>
+
             </div>
         </div>
-
-
-
+        <!-- ------------------------------------------------------------------- -->
     </div>
 
     <br>
     <br>
     <br>
-
-
-
 
     <a id="back2Top" title="Back to top" href="#">&#10148;</a>
     <footer class="footer-container">

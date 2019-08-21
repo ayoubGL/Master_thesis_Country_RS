@@ -7,79 +7,11 @@ from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .choices import *
+from unittest.util import _MAX_LENGTH
 
 
 # ---------------------------------------------- Personal Information ------------------------
 class step_1(models.Model):
-    
-    # ________________gender__________________
-    Male ='Male'
-    Female ='Female'
-    refuse_to_disc = 'Refuse to disclose'
-    # ________________Age__________________
-    under_18 = 'under_18'
-    b18_24 = '18_24'
-    b25_35 = '25_35'
-    b35_45 = '35_45'
-    b45_55 = '45_55'
-    bover_55 = 'Over_55'
-    # ______________ choices  Level ___________
-    Strongly_Disagree  ='Strongly Disagree'
-    Disagree = 'Disagree'
-    Neutral = 'Neutral'
-    Agree = 'Agree'
-    Strongly_Agree='Strongly Agree'
-    
-    
-    Gender_choices = [
-        (Male,'Male'),
-        (Female,'Female'),
-        (refuse_to_disc,'Refuse to disclose')
-    ]
-    
-    Age_choices = [
-        (under_18,'under_18'),
-        (b18_24,'18_24'),
-        (b25_35,'25_35'),
-        (b35_45,'35_45'),
-        (b45_55,'45_55'),
-        (bover_55,'Over_55')
-    ]
-    Imaginative_choices =[
-        (Strongly_Disagree,'Strongly Disagree'),
-        (Disagree,'Disagree'),
-        (Neutral,'Neutral'),
-        (Agree,'Agree'),
-        (Strongly_Agree,'Strongly Agree')
-    ]
-    Organized_choices =[
-        (Strongly_Disagree,'Strongly Disagree'),
-        (Disagree,'Disagree'),
-        (Neutral,'Neutral'),
-        (Agree,'Agree'),
-        (Strongly_Agree,'Strongly Agree')
-    ]
-    Enthusiastic_choices =[
-        (Strongly_Disagree,'Strongly Disagree'),
-        (Disagree,'Disagree'),
-        (Neutral,'Neutral'),
-        (Agree,'Agree'),
-        (Strongly_Agree,'Strongly Agree')
-    ]
-    kind_choices =[
-        (Strongly_Disagree,'Strongly Disagree'),
-        (Disagree,'Disagree'),
-        (Neutral,'Neutral'),
-        (Agree,'Agree'),
-        (Strongly_Agree,'Strongly Agree')
-    ]
-    Calm_choices =[
-        (Strongly_Disagree,'Strongly Disagree'),
-        (Disagree,'Disagree'),
-        (Neutral,'Neutral'),
-        (Agree,'Agree'),
-        (Strongly_Agree,'Strongly Agree')
-    ]
     #------------------------- Fields ------------------------
     title = models.CharField(
         max_length = 20, 
@@ -100,7 +32,6 @@ class step_1(models.Model):
         verbose_name = 'gender',
         default=None,
         blank=False
-   
     )
     
     age = models.CharField(
@@ -157,7 +88,7 @@ class step_1(models.Model):
     )
     
     class Meta:
-        verbose_name= 'step_1'
+        verbose_name= 'Personal_info'
         ordering = ['user_id']
         db_table = 'Personal_information'
     def __str__(self):
@@ -183,7 +114,7 @@ class step_2(models.Model):
                                  min_choices=3,
                                  max_length=200)
     class Meta:
-        verbose_name= 'step_2'
+        verbose_name= 'features'
         ordering = ['user_id']
         db_table = 'Features'
     def __str__(self):
@@ -242,5 +173,109 @@ class user_rate(models.Model):
 
     
 
-
 # -------------- Test ------------------
+class UsabilitySurvey(models.Model):
+    #------------------------- Fields ------------------------
+    title = models.CharField(
+        max_length = 20, 
+        editable=False,
+        default = 'UsabilitySurvey'
+    )
+    
+    user_id = models.ForeignKey(
+        User,
+        default = 1,
+        on_delete=models.CASCADE
+        
+    )
+    
+    usage_frequency = models.CharField(
+        choices = usage_frequency,
+        max_length = 20,
+        verbose_name = 'usage_frequency',
+        default=None,
+        blank=False
+    )
+    
+    
+    system_complexity = models.CharField(
+        choices = system_complexity,
+        max_length = 20,
+        verbose_name = 'system_complexity',
+        default=None,
+        blank=False
+    )
+    
+    usage_ease = models.CharField(
+        choices = usage_ease,
+        max_length = 20,
+        verbose_name = 'usage_ease',
+        default=None,
+        blank=False
+    )
+    need_help = models.CharField(
+        choices = need_help,
+        max_length = 20,
+        verbose_name = 'need_help',
+        default=None,
+        blank=False
+    )
+    
+    functions_integrated = models.CharField(
+        choices = functions_integrated,
+        max_length = 20,
+        verbose_name = 'functions_integrated',
+        default=None,
+        blank=False
+    )
+    system_inconsistency = models.CharField(
+        choices = system_inconsistency,
+        max_length = 20,
+        verbose_name = 'system_inconsistency',
+        default=None,
+        blank=False
+    )
+    learn_to_use = models.CharField(
+        choices = learn_to_use,
+        max_length = 20,
+        verbose_name = 'learn_to_use',
+        default=None,
+        blank=False
+    )
+    
+    system_inconvenient = models.CharField(
+        choices = system_inconvenient,
+        max_length = 20,
+        verbose_name = 'system_inconvenient',
+        default=None,
+        blank=False
+    )
+    
+    confident_level = models.CharField(
+        choices = confident_level,
+        max_length = 20,
+        verbose_name = 'confident_level',
+        default=None,
+        blank=False
+    )
+    
+    learning_before = models.CharField(
+        choices = learning_before,
+        max_length = 20,
+        verbose_name = 'learning_before',
+        default=None,
+        blank=False
+    )
+    
+    comment = models.CharField(max_length = 250,blank  = True)
+    
+    email = models.EmailField(max_length = 150,blank  = True)
+    
+    
+    
+    class Meta:
+        verbose_name= 'UsabilitySurvey'
+        ordering = ['user_id']
+        db_table = 'UsabilitySurvey'
+    def __str__(self):
+        return self.title
