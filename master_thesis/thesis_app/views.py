@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
 from .forms import step_1Form, step_2Form,countriesFormset,UsabilitySurveyForm
 from .choices import *
-from .models import user_rate,country_name,step_1,step_2
+from .models import user_rate,country_name,step_1,step_2,UsabilitySurvey
 from django.forms import formset_factory
 from django import forms
 
@@ -18,7 +18,11 @@ query = country_name.objects.all()
 
 #------------------------------- Personal Information -------------------
 def personal_info(request):
+    auth_user = request.user
     if request.user.is_authenticated:
+        auth_user = request.user
+        if(step_1.objects.filter(user_id=auth_user).delete()):
+            print('')
         if request.method == "POST":
             form = step_1Form(request.POST or None)
             if form.is_valid():
@@ -36,13 +40,11 @@ def personal_info(request):
 
 #------------------------------- Features --------------------------------
 def features(request):
-    # ---------------------------
-    l = []
-    test = step_1.objects.all()
-    for s in test:
-        l.append(str(s.user_id))
-    # ---------------------------
+    auth_user = request.user
     if request.user.is_authenticated :
+        auth_user = request.user
+        if(step_2.objects.filter(user_id=auth_user).delete()):
+            print('')
         if request.method == 'POST':
             form = step_2Form(request.POST or None)
             if form.is_valid():
@@ -60,7 +62,11 @@ def features(request):
 #------------------------------- Countries Rate --------------------------
 
 def countries_rate(request): 
+    auth_user = request.user
     if request.user.is_authenticated:
+        auth_user = request.user
+        if(user_rate.objects.filter(user_id=auth_user).delete()):
+            print('')
         formset = countriesFormset(request.POST or None)
         if request.method == 'POST':
             if 'Add_More' in request.POST:
@@ -78,19 +84,21 @@ def countries_rate(request):
                 if formset.is_valid():
                     for inst in formset:
                         rate  = user_rate()
-                        if inst.is_valid():           
+                        if inst.is_valid():
+                            #answer2 =inst.save(commit = False)
+                            #answer2.user_id = auth_user
                             countries_name_id  = inst.cleaned_data.get('countries_name_id')
                             country_rating = inst.cleaned_data.get('country_rating')
-                            rate.user_id = request.user
+                            rate.user_id = auth_user
                             rate.countries_name_id = countries_name_id
                             rate.country_rating = country_rating
+                            #print(auth_user,"................")
                             rate.save()
                             
                     return redirect('thesis_app:result')
         
     else:
         return redirect('thesis_app:login')            
-
     user = request.user
     formset = countriesFormset(request.POST or None)
     return render(request,'thesis_app/countries_rate.html', context={
@@ -100,14 +108,16 @@ def countries_rate(request):
     )
         
 #------------------------------- Result --------------------------
-rated = user_rate.objects.all()
+
 def result(request):
+    
     if request.user.is_authenticated:
         if request.method == 'POST':
             if 'submit' in request.POST:
                 return redirect('thesis_app:UsabilitySurvey')
     else:
         return redirect('thesis_app:login')
+    rated = user_rate.objects.filter(user_id = request.user)
     user = request.user
     rated_1_3 = rated[:3]
     rated_3_6 = rated[3:6]
@@ -118,7 +128,11 @@ def result(request):
 
 #------------------------------- Usability Survey --------------------------
 def UsabilitySurvey(request):
+    auth_user = request.user
     if request.user.is_authenticated :
+        auth_user = request.user
+        if (UsabilitySurvey.objects.filter(user_id=auth_user).delete()):
+            print()
         if request.method == 'POST':
             form = UsabilitySurveyForm(request.POST or None)
             if form.is_valid():
@@ -184,8 +198,7 @@ def logout_request(request):
 #------------------------------- login --------------------------
 def login_request(request):
     if request.user.is_authenticated:
-        # return redirect(request,'thesis_app/survey_page.html',context={'user':request.user})
-        return redirect('thesis_app:survey_page')
+        return redirect('thesis_app:home')
     else:
         if request.method == 'POST':
             form = AuthenticationForm(request,data = request.POST)
@@ -195,7 +208,7 @@ def login_request(request):
                 user = authenticate(username = username, password = password)
                 if user is not None:
                     login(request, user)
-                    return redirect('thesis_app:survey_page')
+                    return redirect('thesis_app:result')
                 else:
                     messages.error(request, 'Invalid username or password')
             else:

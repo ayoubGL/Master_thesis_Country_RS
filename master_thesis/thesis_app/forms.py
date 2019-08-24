@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User
-from .models import step_1, step_2,country_name,UsabilitySurvey
+from .models import step_1, step_2,country_name,UsabilitySurvey,user_rate
 from django.contrib.auth import get_user_model
 from django_starfield import Stars
 from django_countries.fields import CountryField
@@ -96,9 +96,14 @@ class step_2Form(forms.ModelForm):
 
 query = country_name.objects.all()
 ''
-class user_rateForm(forms.Form):
+class user_rateForm(forms.ModelForm):
     countries_name_id = forms.ModelChoiceField(queryset=query,required=True) 
     country_rating =  forms.IntegerField(required=True,widget=Stars())
+    
+    class Meta:
+        model = user_rate
+        exclude = ('titre','user_id')
+        
     
     def __init__(self, *args, **kwargs):
         super(user_rateForm, self).__init__(*args, **kwargs)

@@ -1,17 +1,362 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "thesis_app/header.html" %} {%block content%} {% load staticfiles %}
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+    .animation_css {
+        border-right: solid 3px rgba(0, 255, 0, .75);
+        white-space: nowrap;
+        overflow: hidden;
+        font-family: 'Source Code Pro', monospace;
+        font-size: 28px;
+        color: rgb(0, 0, 0);
+    }
+    /* Animation */
+    
+    .animation_css {
+        animation: animated-text 4s steps(28, end) 1s 1 normal both, animated-cursor 900ms steps(28, end) infinite;
+        animation-iteration-count: infinite;
+        animation-duration: 15s;
+    }
+    /* text animation */
+    
+    @keyframes animated-text {
+        from {
+            width: 0;
+        }
+        to {
+            width: 900px;
+        }
+    }
+    /* cursor animations */
+    
+    @keyframes animated-cursor {
+        from {
+            border-right-color: rgba(0, 255, 0, .75);
+        }
+        to {
+            border-right-color: transparent;
+        }
+    }
+</style>
+<style type="text/css">
+    .grve-text-primary-1,
+    .grve-text-hover-primary-1:hover,
+    a:hover .grve-text-hover-primary-1,
+    .grve-like-counter.active i,
+    .grve-list li:before,
+    #grve-single-post-meta-bar .grve-categories ul li a:hover,
+    #grve-single-post-meta-bar .grve-tags ul li a:hover,
+    .vc_tta-panel.vc_active .vc_tta-controls-icon,
+    .grve-pagination ul li a:hover,
+    .grve-pagination ul li span.current,
+    .grve-blog.grve-with-shadow .grve-post-title:hover {
+        color: #1ab8f2;
+    }
+    
+    .grve-text-primary-2,
+    .grve-text-hover-primary-2:hover,
+    a:hover .grve-text-hover-primary-2,
+    .grve-list li:before {
+        color: #044475;
+    }
+    
+    .grve-text-primary-3,
+    .grve-text-hover-primary-3:hover,
+    a:hover .grve-text-hover-primary-3,
+    .grve-list li:before {
+        color: #487F84;
+    }
+    
+    .grve-text-primary-4,
+    .grve-text-hover-primary-4:hover,
+    a:hover .grve-text-hover-primary-4,
+    .grve-list li:before {
+        color: #5F597E;
+    }
+    
+    .grve-text-primary-5,
+    .grve-text-hover-primary-5:hover,
+    a:hover .grve-text-hover-primary-5,
+    .grve-list li:before {
+        color: #d6ccad;
+    }
+    
+    .grve-text-dark,
+    #grve-content .grve-text-dark,
+    a.grve-text-dark,
+    .grve-text-dark-hover:hover,
+    a:hover .grve-text-dark-hover {
+        color: #000000;
+    }
+    
+    .grve-text-light,
+    #grve-content .grve-text-light,
+    a.grve-text-light,
+    .grve-text-light-hover:hover,
+    a:hover .grve-text-light-hover {
+        color: #ffffff;
+    }
+    
+    .grve-text-green,
+    .grve-text-hover-green:hover,
+    a.grve-text-hover-green:hover,
+    a:hover .grve-text-hover-green {
+        color: #66bb6a;
+    }
+    
+    .grve-text-red,
+    .grve-text-hover-red:hover,
+    a.grve-text-hover-red:hover,
+    a:hover .grve-text-hover-red {
+        color: #ff5252;
+    }
+    
+    .grve-text-orange,
+    .grve-text-hover-orange:hover,
+    a.grve-text-hover-orange:hover,
+    a:hover .grve-text-hover-orange {
+        color: #fd7f24;
+    }
+    
+    .grve-text-aqua,
+    .grve-text-hover-aqua:hover,
+    a.grve-text-hover-aqua:hover,
+    a:hover .grve-text-hover-aqua {
+        color: #1de9b6;
+    }
+    
+    .grve-text-blue,
+    .grve-text-hover-blue:hover,
+    a.grve-text-hover-blue:hover,
+    a:hover .grve-text-hover-blue {
+        color: #00b0ff;
+    }
+    
+    .grve-text-purple,
+    .grve-text-hover-purple:hover,
+    a.grve-text-hover-purple:hover,
+    a:hover .grve-text-hover-purple {
+        color: #b388ff;
+    }
+    
+    .grve-text-black,
+    .grve-text-hover-black:hover,
+    a.grve-text-hover-black:hover,
+    a:hover .grve-text-hover-black {
+        color: #000000;
+    }
+    
+    .grve-text-grey,
+    .grve-text-hover-grey:hover,
+    a.grve-text-hover-grey:hover,
+    a:hover .grve-text-hover-grey {
+        color: #bababa;
+    }
+    
+    .grve-text-white,
+    .grve-text-hover-white:hover,
+    a.grve-text-hover-white:hover,
+    a:hover .grve-text-hover-white {
+        color: #ffffff;
+    }
+</style>
+<div class="container-fluid">
+    <div class="container d-flex align-items-center flex-column ">
+        <h1 class="masthead-heading text-uppercase text-white" style="
+        margin-bottom: 0 !important; margin-bottom: 0.5rem;
+        font-family: Montserrat , -apple-system, BlinkMacSystemFont, Segoe UI , Roboto, Helvetica Neue , Arial, Noto Sans , sans-serif, Apple Color Emoji , Segoe UI Emoji , Segoe UI Symbol , Noto Color Emoji ;
+        font-weight: 800;
+        font-size: 4.75rem;
+        line-height: 4.75rem;
+      ">how it works</h1>
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="divider-custom-line"></div>
+        </div>
+    </div>
+    <div>
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 style="
+            margin-bottom: 0 !important; margin-bottom: 0.5rem;
+            font-family: Montserrat , -apple-system, BlinkMacSystemFont, Segoe UI , Roboto, Helvetica Neue , Arial, Noto Sans , sans-serif, Apple Color Emoji , Segoe UI Emoji , Segoe UI Symbol , Noto Color Emoji ;font-size: 2.75rem;">Personalized Rankings of Countries</h1>
+                <br>
+                <div class="container  grve-text text-dark">
 
-<head>
-    <title>How </title>
+                    <p class="p0" style="color: black; font-size: 1.3rem;">This is a <a href="http://ensias.um5.ac.ma/">ENSIAS</a> & <a href="https://www.unibz.it/">UNIBZ</a> research project devoted to personalized rankings and recommendations of countries and cities. Respondent is asked to fill out a brief
+                        personal survey, then select certain features they find important in either in original or destination countries and rate a few countries that are offered . Based on these ratings the system would show three lists of potential
+                        countries the respondent might be interested in. At the end two brief surveys are offered: to evaluate the recommendations presented and to evaluate the usability of the system.</p>
+                    <p class="p0" style="color: black; font-size: 1.3rem;">
+                        The respondent can evaluate as many countries as they want (with a minimum of five) .</p>
+                    <p class="p0" style="color: black; font-size: 1.3rem;">
+                        This Master thesis is undertaken by <a href="www.linkedin.com/in/el-majjodi-ayoub-72920b118" target="_blank " rel="noopener ">Ayoub EL Majjodi</a> with the supervision of the project by <a href="https://www.linkedin.com/in/lamiaben/">Lamia Ben Hiba</a>                        ,<a href="http://www.inf.unibz.it/~nelioini/ " target="_blank
+                        " rel="noopener ">Nabil El Ioini</a> and <a href="https://www.linkedin.com/in/mehdielahi/ " target="_blank " rel="noopener ">Mehdi Elahi.</a></p>
+
+                </div>
 
 
-</head>
+            </div>
 
-<body id="page-top" style="background-color: rgba(253, 253, 253, 0.945);">
-    <!-- Navigation -->
 
-    <h1>How this work</h1>
+        </section>
+    </div>
+    <!-- ------------------------------- 00----------------------------- -->
+    <div>
 
-</body>
+        <section class="jumbotron text-center">
+            <div class="row">
+                <div class="col-lg-3">
+                    <span style="font-size: 80px;color: #1ab8f2;line-height: 83px;text-align: left;font-family:Abril Fatface;font-weight:800;font-style:normal" class="vc_custom_heading vc_custom_1529921176368">00.</span>
+                    <div>
+                        <span style="color: black;">Quick &amp; Easy</span>
+                        <h2 style="color: black; font-weight: 800;
+                font-size: 1.75rem;
+                line-height: 1.75rem;"><span>SIGN UP</span></h2>
+                    </div>
+                </div>
 
-</html>
+                <div class="col">
+                    <img height="400" src="{% static 'img/how_works/Sign_up.png' %}">
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- ------------------------------- 01----------------------------- -->
+    <div>
+
+        <section class="jumbotron text-center">
+            <div class="row">
+                <div class="col-lg-3">
+                    <span style="font-size: 80px;color: #1ab8f2;line-height: 83px;text-align: left;font-family:Abril Fatface;font-weight:800;font-style:normal" class="vc_custom_heading vc_custom_1529921176368">01.</span>
+                    <div>
+                        <span style="color: black;">Fill Out</span>
+                        <h2 style="color: black; font-weight: 800;
+                font-size: 1.75rem;
+                line-height: 1.75rem;"><span>PERSONALITY QUESTIONNAIRE</span></h2>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <img height="400" width="900" src="{% static 'img/how_works/Personal_info.png' %}">
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- ------------------------------- 02----------------------------- -->
+    <div>
+
+        <section class="jumbotron text-center">
+            <div class="row">
+                <div class="col-lg-3">
+                    <span style="font-size: 80px;color: #1ab8f2;line-height: 83px;text-align: left;font-family:Abril Fatface;font-weight:800;font-style:normal" class="vc_custom_heading vc_custom_1529921176368">02.</span>
+                    <div>
+                        <span style="color: black;">Select</span>
+                        <h2 style="color: black; font-weight: 800;
+                    font-size: 1.75rem;
+                    line-height: 1.75rem;"><span>IMPORTANT FEATURES
+                        </span></h2>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <img height="400" width="900" src="{% static 'img/how_works/import_features.png' %}">
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- ------------------------------- 03----------------------------- -->
+    <div>
+
+        <section class="jumbotron text-center">
+            <div class="row">
+                <div class="col-lg-3">
+                    <span style="font-size: 80px;color: #1ab8f2;line-height: 83px;text-align: left;font-family:Abril Fatface;font-weight:800;font-style:normal" class="vc_custom_heading vc_custom_1529921176368">03.</span>
+                    <div>
+                        <span style="color: black;">Rate</span>
+                        <h2 style="color: black; font-weight: 800;
+                    font-size: 1.75rem;
+                    line-height: 1.75rem;"><span>RATE COUNTRIES
+                        </span></h2>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <img height="400" width="900" src="{% static 'img/how_works/rate_countries.png' %}">
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- ------------------------------- 04----------------------------- -->
+    <div>
+
+        <section class="jumbotron text-center">
+            <div class="row">
+                <div class="col-lg-3">
+                    <span style="font-size: 80px;color: #1ab8f2;line-height: 83px;text-align: left;font-family:Abril Fatface;font-weight:800;font-style:normal" class="vc_custom_heading vc_custom_1529921176368">04.</span>
+                    <div>
+                        <span style="color: black;">Immediately</span>
+                        <h2 style="color: black; font-weight: 800;
+                        font-size: 1.75rem;
+                        line-height: 1.75rem;"><span>GET RESULTS
+                            </span></h2>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <img height="400" width="900" src="{% static 'img/how_works/GEt_resutl.png' %}">
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- ------------------------------- 05----------------------------- -->
+    <div>
+
+        <section class="jumbotron text-center">
+            <div class="row">
+                <div class="col-lg-3">
+                    <span style="font-size: 80px;color: #1ab8f2;line-height: 83px;text-align: left;font-family:Abril Fatface;font-weight:800;font-style:normal" class="vc_custom_heading vc_custom_1529921176368">05.</span>
+                    <div>
+                        <span style="color: black;">Fill Out</span>
+                        <h2 style="color: black; font-weight: 800;
+                                font-size: 1.75rem;
+                                line-height: 1.75rem;"><span>USABILITY SURVEY
+                                    </span></h2>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <img height="400" width="900" src="{% static 'img/how_works/USABILITY_SURVEY.png' %}">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ------------------------------- -->
+    <div>
+
+        <span class="text-center btn btn-info" style="opacity: 0.8;">
+        <h2 style="color: black; font-weight: 800;
+                font-size: 1.75rem;
+                line-height: 1.75rem;"><span>RATE COUNTRIES
+                    </span></h2>
+        <p class="animation_css">IT'S EASY!,AND GET PERSONALIZED RECOMMENDATIONS !!</p>
+
+        </span>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+{%endblock%}

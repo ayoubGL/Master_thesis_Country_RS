@@ -54,7 +54,7 @@
 
 
 
-            if (c0 == "" || c1 == "" || c2 == "" || c3 == "" || c4 == "" || r0 == "" || r1 == "" || r2 == "" || c3 == "" || c4 == "") {
+            if (c0 == "" || c1 == "" || c2 == "" || c3 == "" || c4 == "" || r0 == "" || r1 == "" || r2 == "" || r4 == "") {
                 document.getElementById('error').innerHTML = " Please rate at least 5 countries";
                 return false;
             } else {
@@ -174,12 +174,6 @@
                     <p>
                         <form method="POST" action="" name="myForm" onsubmit="return validateForm()">
                             <br>{% csrf_token %} {{ formset.management_form|crispy }}
-                            <div class="container">
-                                <div style="color: #ec0c0c;font-size: 20px !important;" id="error"></div>
-                                <div style="color: #ec0c0c;font-size: 20px !important;" id="error_2"></div>
-                                <br>
-                                <br>
-                            </div>
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col font-weight-bold"> Country Name <i class="text-primary ">*</i></div>
@@ -201,12 +195,17 @@
                                 {% endfor %}
                             </div>
 
-                            <input title="add countries" type="submit" name="Add_More" value="ADD MORE" class="btn btn-outline-success btn-lg font-weight-bold" />
+                            <input title="add countries" type="submit" name="Add_More" value="ADD MORE" class="btn btn-info btn-lg font-weight-bold" />
                             <br>
                             <br>
+                            <div class="container">
+                                <div style="color: #ec0c0c;font-size: 20px !important;" id="error"></div>
+                                <div style="color: #ec0c0c;font-size: 20px !important;" id="error_2"></div>
+                                <br>
+                            </div>
                             <br>
                             <br>
-                            <button type="submit" name="submit" class="btn btn-block btn-outline-primary"> <i><h5 class=" font-weight-bold"><br>SUBMIT MY RATINGS<br></h5></i></button>
+                            <button type="submit" name="submit" class="btn btn-block btn-outline-info"> <i><h5 class=" font-weight-bold"><br>SUBMIT MY RATINGS<br></h5></i></button>
                         </form>
                     </p>
                     <br>

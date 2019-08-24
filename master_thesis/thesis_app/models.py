@@ -20,11 +20,12 @@ class step_1(models.Model):
     )
     
     user_id = models.ForeignKey(
-        User,
-        default = 1,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
         
     )
+    
+    created = models.DateTimeField(auto_now_add=True)
     
     gender = models.CharField(
         choices = Gender_choices,
@@ -92,7 +93,7 @@ class step_1(models.Model):
         ordering = ['user_id']
         db_table = 'Personal_information'
     def __str__(self):
-        return self.title
+        return "{}".format(self.user_id.username)
     
     
         
@@ -105,10 +106,11 @@ class step_2(models.Model):
     )
     
     user_id = models.ForeignKey(
-        User,
-        default = 1,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
+    
+    created = models.DateTimeField(auto_now_add=True) 
     
     features = MultiSelectField(choices=features_choices,
                                  min_choices=3,
@@ -118,7 +120,9 @@ class step_2(models.Model):
         ordering = ['user_id']
         db_table = 'Features'
     def __str__(self):
-        return self.title
+        return "{}".format(self.user_id.username)
+    
+        
 
 # ----------------------------------------------  countries name -------------------------------
 class country_name(models.Model):
@@ -130,7 +134,8 @@ class country_name(models.Model):
         default = country_name[0][0],
         choices = country_name
     )
-
+    flag = models.ImageField(upload_to = 'countries_flag')
+    
     def __str__(self):
         return self.country_name
     
@@ -147,15 +152,12 @@ class user_rate(models.Model):
     )
     
     user_id = models.ForeignKey(
-        User,
-        default = 1,
-        related_name='current_user',
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
-    
+    created = models.DateTimeField(auto_now_add=True)
     countries_name_id = models.ForeignKey(
         country_name,
-        default=1,
         blank=False,
         on_delete = models.CASCADE
     )
@@ -184,10 +186,11 @@ class UsabilitySurvey(models.Model):
     
     user_id = models.ForeignKey(
         User,
-        default = 1,
         on_delete=models.CASCADE
         
     )
+    
+    created = models.DateTimeField(auto_now_add=True)
     
     usage_frequency = models.CharField(
         choices = usage_frequency,
@@ -278,4 +281,4 @@ class UsabilitySurvey(models.Model):
         ordering = ['user_id']
         db_table = 'UsabilitySurvey'
     def __str__(self):
-        return self.title
+        return "{}".format(self.user_id.username)
