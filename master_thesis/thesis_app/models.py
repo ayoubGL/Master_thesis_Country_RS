@@ -134,7 +134,7 @@ class country_name(models.Model):
         #default = country_name[0][0],
         #choices = country_name
     )
-    flag = models.ImageField(upload_to = 'countries_flag')
+    
     
     def __str__(self):
         return self.country_name

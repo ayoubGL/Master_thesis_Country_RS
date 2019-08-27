@@ -43,6 +43,13 @@ def features(request):
     auth_user = request.user
     if request.user.is_authenticated :
         auth_user = request.user
+        # test if user take the firsts steps
+        if(step_1.objects.filter(user_id=auth_user)):
+            print('Exist')
+        else :
+            return redirect('thesis_app:personal_info')
+        
+        # if user comeback to change their choices
         if(step_2.objects.filter(user_id=auth_user).delete()):
             print('')
         if request.method == 'POST':
@@ -65,6 +72,14 @@ def countries_rate(request):
     auth_user = request.user
     if request.user.is_authenticated:
         auth_user = request.user
+        
+        # test if user take the firsts steps
+        if(step_1.objects.filter(user_id=auth_user)):
+            print('Exist')
+        else :
+            return redirect('thesis_app:personal_info')
+        
+        # if user comeback to change their choices
         if(user_rate.objects.filter(user_id=auth_user).delete()):
             print('')
         formset = countriesFormset(request.POST or None)
@@ -109,15 +124,127 @@ def countries_rate(request):
         
 #------------------------------- Result --------------------------
 
-def result(request):
+from datetime import datetime
+import csv
+
+from surprise import BaselineOnly
+from surprise import SVDpp, SVD, SlopeOne, KNNBaseline,NormalPredictor, BaselineOnly, \
+                     KNNBasic, KNNBasic, KNNWithMeans, NMF, CoClustering
+from surprise import Dataset
+from surprise import Reader
+from collections import defaultdict
+import os
+import pandas as pd
+
+            #--------------------- Append new user to csv file (data) --------------------------
+def add_to_csv(auth_user):
+    fields = []
     
+    # get user rating from database
+    user_rating = user_rate.objects.filter(user_id = auth_user)
+    
+    # prepare the fields    
+    for field in user_rating:
+        obj = []
+        user_id = str(field.user_id.id)
+        obj.append(user_id)
+        obj.append(str(field.id))
+        obj.append(str(field.country_rating))
+        obj.append(str(datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
+        fields.append(obj)
+        
+    # append new user to csv file
+    with open(r'static/CRdata.csv', 'a') as f:
+        for user_obj in fields:
+            writer = csv.writer(f)
+            writer.writerow(user_obj)
+    
+    # test if well appended
+    ok = '-------- > Well Appended'
+    nok = '---------> not appended'
+    with open(r'static/CRdata.csv', 'r') as f:    
+        if (list(csv.reader(f))[-1][0]) == user_id :
+            return  user_id
+        else:
+            return nok 
+
+
+
+#--------------------- get top recomendation for user --------------------------
+def get_top_n_for_user(target_user_id, recom_alg, recom_size):
+    
+    file_path = os.path.expanduser('static/CRdata.csv')
+    reader = Reader(line_format='user item rating timestamp', sep=',', rating_scale=(0,100))
+    data = Dataset.load_from_file(file_path,reader=reader)
+    trainset = data.build_full_trainset()
+    testset = trainset.build_anti_testset()
+    #print 'before'
+    
+    if(recom_alg == 'KNNBaseline_user'):
+    #   print 'inside'
+        similarity = {'name': 'cosine',
+            'user_based': True  # compute  similarities between users
+            }
+        algo = KNNBaseline(sim_options=similarity)
+    #  print "else"
+        #eval('algo = ' + recom_alg + '()')
+    elif(recom_alg == 'KNNBaseline'):
+        algo = KNNBaseline()
+    else:
+        algo = SVD()
+#print "after"
+    algo.fit(trainset)
+    predictions  = algo.test(testset)
+
+    # First map the predictions to each user.
+    top_n = defaultdict(list)
+    for uid, iid, true_r, est, _ in predictions:
+        top_n[uid].append((iid, est))
+
+    # Then sort the predictions for each user and retrieve the k highest ones.
+    for uid, user_ratings in top_n.items():
+        user_ratings.sort(key=lambda x: x[1], reverse=True)
+        top_n[uid] = user_ratings[:recom_size]
+
+    return top_n[str(target_user_id)]
+
+
+
+def result(request):
     if request.user.is_authenticated:
+        auth_user = request.user
+        
+        #add rating of curent user to the csv file
+        target_user_id = add_to_csv(auth_user)
+        
+        # compute the recomendation
+        recom_alg = 'KNNBaseline_user'
+        recom_size = 9
+
+        top_n_for_target_user = get_top_n_for_user(target_user_id, recom_alg, recom_size)
+        
+        # open country_maping file 
+        countries_mapping = pd.read_csv('./Countries.csv')
+        recommendations = []
+        for i in range(len(top_n_for_target_user)):
+            recommendations.append(countries_mapping.loc[countries_mapping['Id'] == top_n_for_target_user[i][0],'Country'].item())
+                
+        
+        
+        
+        
+        # test if user take the firsts steps 
+        if(step_1.objects.filter(user_id=auth_user)):
+            print('')
+        else :
+            return redirect('thesis_app:personal_info')
         if request.method == 'POST':
             if 'submit' in request.POST:
                 return redirect('thesis_app:UsabilitySurvey')
     else:
         return redirect('thesis_app:login')
     rated = user_rate.objects.filter(user_id = request.user)
+
     user = request.user
     rated_1_3 = rated[:3]
     rated_3_6 = rated[3:6]
@@ -126,11 +253,38 @@ def result(request):
     return render(request, 'thesis_app/result.html', args)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #------------------------------- Usability Survey --------------------------
 def UsabilitySurvey(request):
     auth_user = request.user
     if request.user.is_authenticated :
         auth_user = request.user
+        if(step_1.objects.filter(user_id=auth_user)):
+            print('Exist')
+        else :
+            return redirect('thesis_app:personal_info')
         if (UsabilitySurvey.objects.filter(user_id=auth_user).delete()):
             print()
         if request.method == 'POST':
