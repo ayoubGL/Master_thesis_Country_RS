@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf import settings
+
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 #from django.conf.urls import handler404, handler500
 app_name = "thesis_app"
 
@@ -18,5 +22,7 @@ urlpatterns = [
     path('howWorks/', views.howWorks, name='howWorks'),
     
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # handler404 = views.error_404
 # handler500 = views.error_500

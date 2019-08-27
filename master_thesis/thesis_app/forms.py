@@ -100,9 +100,12 @@ class user_rateForm(forms.ModelForm):
     countries_name_id = forms.ModelChoiceField(queryset=query,required=True) 
     country_rating =  forms.IntegerField(required=True,widget=Stars())
     
+   
     class Meta:
         model = user_rate
         exclude = ('titre','user_id')
+        
+        
         
     
     def __init__(self, *args, **kwargs):
@@ -112,10 +115,10 @@ class user_rateForm(forms.ModelForm):
         self.fields['countries_name_id'].required = True
         self.fields['country_rating'].required = True
         self.fields['country_rating'].error_messages['required'] = 'I require that you fill out this field'
-
+        
 
                          
-countriesFormset = formset_factory(user_rateForm, extra = 5,max_num=20)              
+countriesFormset = formset_factory(user_rateForm, extra = 5,max_num=40)              
 
     
 class UsabilitySurveyForm(forms.ModelForm):

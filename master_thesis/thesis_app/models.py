@@ -131,8 +131,8 @@ class country_name(models.Model):
     country_name = models.CharField(
         blank=False,
         max_length = 50,
-        default = country_name[0][0],
-        choices = country_name
+        #default = country_name[0][0],
+        #choices = country_name
     )
     flag = models.ImageField(upload_to = 'countries_flag')
     
@@ -156,6 +156,7 @@ class user_rate(models.Model):
         on_delete=models.CASCADE
     )
     created = models.DateTimeField(auto_now_add=True)
+    
     countries_name_id = models.ForeignKey(
         country_name,
         blank=False,
