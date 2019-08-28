@@ -1,5 +1,5 @@
 from django.contrib import admin
-from thesis_app.models import step_1,step_2,country_name,user_rate,UsabilitySurvey
+from thesis_app.models import step_1,step_2,country_name,user_rate,usabilitySurvey,user_result
 
 # Register your models here.
 
@@ -13,12 +13,16 @@ class step_2Admin(admin.ModelAdmin):
 class user_rateAdmin(admin.ModelAdmin):
     list_display = ('user_id','created','countries_name_id','country_rating')
 
-class UsabilitySurveyAdmin(admin.ModelAdmin):
+class usabilitySurveyAdmin(admin.ModelAdmin):
     list_display = ('user_id','created','email','usage_frequency','system_complexity','usage_ease',
                     'need_help','functions_integrated','system_inconsistency','learn_to_use','system_inconvenient','confident_level','learning_before')
+
+class user_resultAdmin(admin.ModelAdmin):
+    list_display = ('user_id','countries_name','algorithm','created')
 
 admin.site.register(step_1,step_1Admin)
 admin.site.register(step_2,step_2Admin)
 admin.site.register(country_name)
 admin.site.register(user_rate,user_rateAdmin)
-admin.site.register(UsabilitySurvey,UsabilitySurveyAdmin)
+admin.site.register(usabilitySurvey,usabilitySurveyAdmin)
+admin.site.register(user_result,user_resultAdmin)

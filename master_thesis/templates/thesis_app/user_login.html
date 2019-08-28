@@ -1,0 +1,97 @@
+{% extends "thesis_app/header.html" %} {%block content%}{% load staticfiles %} {% if re %}
+<div class="container">
+    <br>{% csrf_token %}
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="card text-primary border-info">
+                <div class="card-header bg-info text-center text-white">
+                    <h4>List 1</h4>
+                </div>
+                <div class="card-body">
+
+                    <ul class="list-group list-group-flush">
+                        {%for i in r1%}
+                        <div class="row">
+                            <div class="col">
+                                <li class="list-group-item">{{i}} </li>
+                            </div>
+                            <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
+                                    height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
+                        </div>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class=" col-md-4 ">
+            <div class="card text-primary border-info ">
+                <div class="card-header bg-info text-center text-white ">
+                    <h4>List 2</h4>
+                </div>
+                <div class="card-body">
+
+                    <ul class="list-group list-group-flush ">
+                        {%for i in r2%}
+                        <div class="row">
+                            <div class="col">
+                                <li class="list-group-item">{{i}} </li>
+                            </div>
+                            <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
+                                    height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
+                        </div>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4 ">
+
+            <div class="card text-primary border-info ">
+                <div class="card-header bg-info text-center text-white ">
+                    <h4>List 3</h4>
+                </div>
+                <div class="card-body ">
+
+                    <ul class="list-group list-group-flush ">
+                        {%for i in r3%}
+                        <div class="row">
+                            <div class="col">
+                                <li class="list-group-item">{{i}} </li>
+                            </div>
+                            <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
+                                height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
+                        </div>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{%else %}
+
+<div class="countainer">
+    <section class="jumbotron text-center">
+
+        <div class="main-content">
+            <i class="fa fa-smile-o" style="font-size:100px;"></i>
+            <!-- <i class="fa fa-thumbs-up main-content__checkmark"></i> -->
+            <br>
+            <br>
+            <p class="main-content__body" style="color: black;">You are successfully logged in, to get your recommendations, thanks </p>
+            <br>
+            <p class="p0"><a href="{% url 'thesis_app:personal_info' %}">click here</a></p>.
+            <p class="main-content__body" style="color: black;"> to take the survey.</p>
+
+        </div>
+    </section>
+</div>
+
+
+{%endif%} {%endblock%}

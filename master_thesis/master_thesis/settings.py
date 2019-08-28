@@ -90,6 +90,7 @@ DATABASES = {
     },
     'OPTIONS':{
         "init_command":"SET foreign_key_checks = 0;",
+        'managed': True,
 }
 }
 

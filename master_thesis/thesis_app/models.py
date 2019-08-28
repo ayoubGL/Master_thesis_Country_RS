@@ -177,7 +177,7 @@ class user_rate(models.Model):
     
 
 # -------------- Test ------------------
-class UsabilitySurvey(models.Model):
+class usabilitySurvey(models.Model):
     #------------------------- Fields ------------------------
     title = models.CharField(
         max_length = 20, 
@@ -283,3 +283,29 @@ class UsabilitySurvey(models.Model):
         db_table = 'UsabilitySurvey'
     def __str__(self):
         return "{}".format(self.user_id.username)
+
+
+
+# --------------- The result -----------------------
+class user_result(models.Model):
+    title = models.CharField(
+        max_length = 20,
+        editable = False,
+        default = 'user_result'
+    )
+    
+    user_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    countries_name = models.CharField(max_length = 100)
+    
+    algorithm = models.CharField(max_length = 30)
+   
+    created = models.DateTimeField(auto_now_add=True)
+   
+    def __str__(self):
+        return "{}".format(self.user_id.username)
+    class Meta:
+        verbose_name= 'user_result'
+        db_table = 'user_result'

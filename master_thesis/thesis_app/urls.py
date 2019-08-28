@@ -20,6 +20,7 @@ urlpatterns = [
     path('UsabilitySurvey/', views.UsabilitySurvey, name='UsabilitySurvey'),
     path('thanks_you/', views.thanks, name='thanks'),
     path('howWorks/', views.howWorks, name='howWorks'),
+    path('user_result/', views.redirect_login, name='redirect_login'),
     
 ]
 

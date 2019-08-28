@@ -3,7 +3,20 @@
     <div class="panel transbox" style="color:#000000;">
         <div class="div-form ">
             <form method="POST">
-                {% csrf_token %} {{form|crispy}}
+
+                <span style="
+                    font-family: Raleway-Black;
+                    font-size: 30px;
+                    color: #333333;
+                    line-height: 1.2;
+                    text-transform: uppercase;
+                    text-align: center;
+                  
+                    width: 100%;
+                    display: block;
+                  ">
+                    Login
+                </span> {% csrf_token %} {{form|crispy}}
 
                 <br> {% for message in messages %}
 

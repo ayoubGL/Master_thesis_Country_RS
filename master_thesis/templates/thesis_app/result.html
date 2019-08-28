@@ -138,23 +138,35 @@
 
                                                 <ul class="list-group list-group-flush">
                                                     {%for i in Fst_3%}
-                                                    <li class="list-group-item">{{i.countries_name_id}} </li>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <li class="list-group-item">{{i}} </li>
+                                                        </div>
+                                                        <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
+                                                            height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
+                                                    </div>
                                                     {%endfor%}
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <div class="card text-primary border-info">
-                                            <div class="card-header bg-info text-center text-white">
+                                    <div class=" col-md-4 ">
+                                        <div class="card text-primary border-info ">
+                                            <div class="card-header bg-info text-center text-white ">
                                                 <h4>List 2</h4>
                                             </div>
                                             <div class="card-body">
 
-                                                <ul class="list-group list-group-flush">
+                                                <ul class="list-group list-group-flush ">
                                                     {%for i in Snd_3%}
-                                                    <li class="list-group-item">{{i.countries_name_id}} </li>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <li class="list-group-item">{{i}} </li>
+                                                        </div>
+                                                        <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
+                                                            height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
+                                                    </div>
                                                     {%endfor%}
                                                 </ul>
                                             </div>
@@ -162,17 +174,23 @@
 
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 ">
 
-                                        <div class="card text-primary border-info">
-                                            <div class="card-header bg-info text-center text-white">
+                                        <div class="card text-primary border-info ">
+                                            <div class="card-header bg-info text-center text-white ">
                                                 <h4>List 3</h4>
                                             </div>
-                                            <div class="card-body">
+                                            <div class="card-body ">
 
-                                                <ul class="list-group list-group-flush">
+                                                <ul class="list-group list-group-flush ">
                                                     {%for i in Trd_3%}
-                                                    <li class="list-group-item">{{i.countries_name_id}} </li>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <li class="list-group-item">{{i}} </li>
+                                                        </div>
+                                                        <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
+                                                        height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
+                                                    </div>
                                                     {%endfor%}
                                                 </ul>
                                             </div>
@@ -189,7 +207,7 @@
                         <br>
                         <br>
                         <br>
-                        <button type="submit" name="submit" class="btn btn-block btn-outline-info"> <i><h5 class=" font-weight-bold"><br>Next<br></h5></i></button>
+                        <button type="submit " name="submit " class="btn btn-block btn-outline-info "> <i><h5 class=" font-weight-bold "><br>Next<br></h5></i></button>
                     </form>
 
                 </div>
@@ -202,7 +220,7 @@
     <br>
     <br>
     <br>
-    <a id="back2Top" title="Back to top" href="#">&#10148;</a>
+    <a id="back2Top " title="Back to top " href="# ">&#10148;</a>
 
     <footer class="footer-container ">
 

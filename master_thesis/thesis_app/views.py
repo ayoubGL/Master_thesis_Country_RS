@@ -8,9 +8,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
 from .forms import step_1Form, step_2Form,countriesFormset,UsabilitySurveyForm
 from .choices import *
-from .models import user_rate,country_name,step_1,step_2,UsabilitySurvey
+from .models import user_rate,country_name,step_1,step_2,usabilitySurvey,user_result
 from django.forms import formset_factory
 from django import forms
+from sre_compile import _compile_info
+from .app import *
 
 
 query = country_name.objects.all()
@@ -124,92 +126,6 @@ def countries_rate(request):
         
 #------------------------------- Result --------------------------
 
-from datetime import datetime
-import csv
-
-from surprise import BaselineOnly
-from surprise import SVDpp, SVD, SlopeOne, KNNBaseline,NormalPredictor, BaselineOnly, \
-                     KNNBasic, KNNBasic, KNNWithMeans, NMF, CoClustering
-from surprise import Dataset
-from surprise import Reader
-from collections import defaultdict
-import os
-import pandas as pd
-
-            #--------------------- Append new user to csv file (data) --------------------------
-def add_to_csv(auth_user):
-    fields = []
-    
-    # get user rating from database
-    user_rating = user_rate.objects.filter(user_id = auth_user)
-    
-    # prepare the fields    
-    for field in user_rating:
-        obj = []
-        user_id = str(field.user_id.id)
-        obj.append(user_id)
-        obj.append(str(field.id))
-        obj.append(str(field.country_rating))
-        obj.append(str(datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
-        fields.append(obj)
-        
-    # append new user to csv file
-    with open(r'static/CRdata.csv', 'a') as f:
-        for user_obj in fields:
-            writer = csv.writer(f)
-            writer.writerow(user_obj)
-    
-    # test if well appended
-    ok = '-------- > Well Appended'
-    nok = '---------> not appended'
-    with open(r'static/CRdata.csv', 'r') as f:    
-        if (list(csv.reader(f))[-1][0]) == user_id :
-            return  user_id
-        else:
-            return nok 
-
-
-
-#--------------------- get top recomendation for user --------------------------
-def get_top_n_for_user(target_user_id, recom_alg, recom_size):
-    
-    file_path = os.path.expanduser('static/CRdata.csv')
-    reader = Reader(line_format='user item rating timestamp', sep=',', rating_scale=(0,100))
-    data = Dataset.load_from_file(file_path,reader=reader)
-    trainset = data.build_full_trainset()
-    testset = trainset.build_anti_testset()
-    #print 'before'
-    
-    if(recom_alg == 'KNNBaseline_user'):
-    #   print 'inside'
-        similarity = {'name': 'cosine',
-            'user_based': True  # compute  similarities between users
-            }
-        algo = KNNBaseline(sim_options=similarity)
-    #  print "else"
-        #eval('algo = ' + recom_alg + '()')
-    elif(recom_alg == 'KNNBaseline'):
-        algo = KNNBaseline()
-    else:
-        algo = SVD()
-#print "after"
-    algo.fit(trainset)
-    predictions  = algo.test(testset)
-
-    # First map the predictions to each user.
-    top_n = defaultdict(list)
-    for uid, iid, true_r, est, _ in predictions:
-        top_n[uid].append((iid, est))
-
-    # Then sort the predictions for each user and retrieve the k highest ones.
-    for uid, user_ratings in top_n.items():
-        user_ratings.sort(key=lambda x: x[1], reverse=True)
-        top_n[uid] = user_ratings[:recom_size]
-
-    return top_n[str(target_user_id)]
-
-
-
 def result(request):
     if request.user.is_authenticated:
         auth_user = request.user
@@ -218,22 +134,22 @@ def result(request):
         target_user_id = add_to_csv(auth_user)
         
         # compute the recomendation
-        recom_alg = 'KNNBaseline_user'
+        recom_alg = 'other'
         recom_size = 9
 
         top_n_for_target_user = get_top_n_for_user(target_user_id, recom_alg, recom_size)
+        print(top_n_for_target_user)
         
-        # open country_maping file 
-        countries_mapping = pd.read_csv('./Countries.csv')
+        # get country name
         recommendations = []
         for i in range(len(top_n_for_target_user)):
-            recommendations.append(countries_mapping.loc[countries_mapping['Id'] == top_n_for_target_user[i][0],'Country'].item())
-                
+            recommendations.append(top_n_for_target_user[i][0])
         
+        recommended_countries = []
         
-        
-        
-        # test if user take the firsts steps 
+        for C_id in recommendations:
+            recommended_countries.append(list(country_name.objects.filter(id = C_id).values_list('country_name', flat = True))) 
+       
         if(step_1.objects.filter(user_id=auth_user)):
             print('')
         else :
@@ -242,14 +158,39 @@ def result(request):
             if 'submit' in request.POST:
                 return redirect('thesis_app:UsabilitySurvey')
     else:
-        return redirect('thesis_app:login')
-    rated = user_rate.objects.filter(user_id = request.user)
+        return redirect('thesis_app:login')   
+    
+    # save result to database
+    for r in recommended_countries:
+        user_recomded = user_result()
+        user_recomded.user_id =  auth_user
+        user_recomded.countries_name = str(r[0])
+        if recom_alg == 'KNNBaseline_user' or recom_alg == 'KNNBaseline':
+            user_recomded.algorithm = recom_alg
+        else:
+            user_recomded.algorithm = 'SVD'
+        user_recomded.save()
+   
+    rated_1_3 =[]  
+    rated_3_6 =[] 
+    rated_6_9 =[] 
 
-    user = request.user
-    rated_1_3 = rated[:3]
-    rated_3_6 = rated[3:6]
-    rated_6_9 = rated[6:9]
-    args = {"Fst_3":rated_1_3,"Snd_3":rated_3_6, "Trd_3":rated_6_9,"user":user}   
+    for i in recommended_countries[:3]:
+        rated_1_3.append(i[0])
+       
+        
+    for i in recommended_countries[3:6]:
+        rated_3_6.append(i[0])
+        
+    for i in recommended_countries[6:9]:
+        rated_6_9.append(i[0])
+        
+    # rated_1_3 = recommended_countries[:3]
+    # rated_3_6 = recommended_countries[3:6]
+    # rated_6_9 = recommended_countries[6:9]
+
+    print('--------->',rated_1_3,rated_3_6, rated_6_9)
+    args = {"Fst_3":rated_1_3,"Snd_3":rated_3_6, "Trd_3":rated_6_9,"user":auth_user}   
     return render(request, 'thesis_app/result.html', args)
 
 
@@ -259,24 +200,7 @@ def result(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#------------------------------- Usability Survey --------------------------
+#------------------------ Usability Survey -----------------------
 def UsabilitySurvey(request):
     auth_user = request.user
     if request.user.is_authenticated :
@@ -285,8 +209,8 @@ def UsabilitySurvey(request):
             print('Exist')
         else :
             return redirect('thesis_app:personal_info')
-        if (UsabilitySurvey.objects.filter(user_id=auth_user).delete()):
-            print()
+        if (usabilitySurvey.objects.filter(user_id=auth_user).delete()):
+            print('')
         if request.method == 'POST':
             form = UsabilitySurveyForm(request.POST or None)
             if form.is_valid():
@@ -304,9 +228,16 @@ def UsabilitySurvey(request):
 
 def thanks(request):
     return render(request, 'thesis_app/thanks.html', context={})
-
+#-------------------------------- how works ----------------------
 def howWorks(request):
     return render(request,'thesis_app/howWorks.html', context={})
+
+
+
+
+
+
+
 
 
 
@@ -362,7 +293,7 @@ def login_request(request):
                 user = authenticate(username = username, password = password)
                 if user is not None:
                     login(request, user)
-                    return redirect('thesis_app:result')
+                    return redirect('thesis_app:redirect_login')
                 else:
                     messages.error(request, 'Invalid username or password')
             else:
@@ -372,8 +303,23 @@ def login_request(request):
 
 
 
+# -------------------- redirect login -----------------        
+def redirect_login(request):
+    if request.user.is_authenticated:
+        result = []
+        result  = list(user_result.objects.filter(user_id=request.user).values_list('countries_name',flat = True))
         
-    
+        rated_1_3 = result[:3]
+        rated_3_6 = result[3:6]
+        rated_6_9 = result[6:9]
+        
+        
+        if len(result) == 0:
+            nr = 'Sorry'
+            return render(request, 'thesis_app/user_login.html', context={'result':nr})
+        else :
+            return render(request, 'thesis_app/user_login.html', context={'r1':rated_1_3,'r2':rated_3_6,'r3':rated_6_9})
+            
     
     
     

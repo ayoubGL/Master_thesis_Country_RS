@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.models import User
-from .models import step_1, step_2,country_name,UsabilitySurvey,user_rate
+from .models import step_1, step_2,country_name,usabilitySurvey,user_rate
 from django.contrib.auth import get_user_model
 from django_starfield import Stars
 from django_countries.fields import CountryField
@@ -123,7 +123,7 @@ countriesFormset = formset_factory(user_rateForm, extra = 5,max_num=40)
     
 class UsabilitySurveyForm(forms.ModelForm):
     class Meta:
-        model = UsabilitySurvey
+        model = usabilitySurvey
         exclude = ('title', 'user_id')
         widgets = {     
             'usage_frequency':forms.RadioSelect(),
