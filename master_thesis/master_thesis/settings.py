@@ -22,7 +22,7 @@ SECRET_KEY = '3cuygwtq284hk3nt+=0phwsvt@oz0b$p8_d@9ehps34p8!03-#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['thesis.yourdest.com']
 
 
 # Application definition
@@ -83,8 +83,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'master_thesis_django',
-        'USER': 'root',
-        'PASSWORD': 'par4.',
+        'USER': 'ayoub',
+        'PASSWORD': 'Test1234',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         
     },
@@ -134,6 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'thesis_app/flags')
 

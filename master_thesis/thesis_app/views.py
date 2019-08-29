@@ -129,12 +129,11 @@ def countries_rate(request):
 def result(request):
     if request.user.is_authenticated:
         auth_user = request.user
-        
         #add rating of curent user to the csv file
         target_user_id = add_to_csv(auth_user)
         
         # compute the recomendation
-        recom_alg  = ['KNNBaseline_user','KNNBaseline','SVD']
+        recom_alg  = ['KNNBaseline_user','NormalPredictor','SVD']
         recom_size = 3
         top_n_for_target_user = []
 
@@ -157,12 +156,11 @@ def result(request):
         else :
             return redirect('thesis_app:personal_info')
         if request.method == 'POST':
-            if 'submit' in request.POST:
                 return redirect('thesis_app:UsabilitySurvey')
     else:
         return redirect('thesis_app:login')   
     
-    # save result to database
+    #save result to database
     recom_algorithm  = [recom_alg[0],recom_alg[0],recom_alg[0],
                          recom_alg[1],recom_alg[1],recom_alg[1],recom_alg[2],recom_alg[2],recom_alg[2]]
     i = 0
@@ -173,9 +171,9 @@ def result(request):
         user_recomded.algorithm = al
         user_recomded.save()
    
-    rated_1_3 =[]  
-    rated_3_6 =[] 
-    rated_6_9 =[] 
+    # rated_1_3 =[1,2,3]  
+    # rated_3_6 =[1,2,3]  
+    # rated_6_9 =[1,2,3]  
 
     for i in recommended_countries[:3]:
         rated_1_3.append(i[0])
@@ -186,13 +184,7 @@ def result(request):
         
     for i in recommended_countries[6:9]:
         rated_6_9.append(i[0])
-        
-    # rated_1_3 = recommended_countries[:3]
-    # rated_3_6 = recommended_countries[3:6]
-    # rated_6_9 = recommended_countries[6:9]
-
-    
-    args = {"Fst_3":rated_1_3,"Snd_3":rated_3_6, "Trd_3":rated_6_9,"user":auth_user}   
+    args = {"Fst_3":rated_1_3,"Snd_3":rated_3_6, "Trd_3":rated_6_9,"user":request.user}   
     return render(request, 'thesis_app/result.html', args)
 
 
