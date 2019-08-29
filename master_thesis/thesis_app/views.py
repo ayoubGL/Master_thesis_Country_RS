@@ -134,21 +134,23 @@ def result(request):
         target_user_id = add_to_csv(auth_user)
         
         # compute the recomendation
-        recom_alg = 'other'
-        recom_size = 9
+        recom_alg  = ['KNNBaseline_user','KNNBaseline','SVD']
+        recom_size = 3
+        top_n_for_target_user = []
 
-        top_n_for_target_user = get_top_n_for_user(target_user_id, recom_alg, recom_size)
-        print(top_n_for_target_user)
+        for reco_algo in recom_alg:
+            top_n_for_target_user.append(get_top_n_for_user(target_user_id,reco_algo, recom_size))
+        
         
         # get country name
         recommendations = []
         for i in range(len(top_n_for_target_user)):
-            recommendations.append(top_n_for_target_user[i][0])
-        
+            for j in range(len(top_n_for_target_user[i])):
+                recommendations.append(top_n_for_target_user[i][j][0])
         recommended_countries = []
         
-        for C_id in recommendations:
-            recommended_countries.append(list(country_name.objects.filter(id = C_id).values_list('country_name', flat = True))) 
+        for C_id in  recommendations:
+                recommended_countries.append(list(country_name.objects.filter(id = C_id).values_list('country_name', flat = True))) 
        
         if(step_1.objects.filter(user_id=auth_user)):
             print('')
@@ -161,14 +163,14 @@ def result(request):
         return redirect('thesis_app:login')   
     
     # save result to database
-    for r in recommended_countries:
+    recom_algorithm  = [recom_alg[0],recom_alg[0],recom_alg[0],
+                         recom_alg[1],recom_alg[1],recom_alg[1],recom_alg[2],recom_alg[2],recom_alg[2]]
+    i = 0
+    for r,al in zip(recommended_countries,recom_algorithm):
         user_recomded = user_result()
         user_recomded.user_id =  auth_user
         user_recomded.countries_name = str(r[0])
-        if recom_alg == 'KNNBaseline_user' or recom_alg == 'KNNBaseline':
-            user_recomded.algorithm = recom_alg
-        else:
-            user_recomded.algorithm = 'SVD'
+        user_recomded.algorithm = al
         user_recomded.save()
    
     rated_1_3 =[]  
@@ -189,7 +191,7 @@ def result(request):
     # rated_3_6 = recommended_countries[3:6]
     # rated_6_9 = recommended_countries[6:9]
 
-    print('--------->',rated_1_3,rated_3_6, rated_6_9)
+    
     args = {"Fst_3":rated_1_3,"Snd_3":rated_3_6, "Trd_3":rated_6_9,"user":auth_user}   
     return render(request, 'thesis_app/result.html', args)
 
@@ -312,7 +314,7 @@ def redirect_login(request):
         rated_1_3 = result[:3]
         rated_3_6 = result[3:6]
         rated_6_9 = result[6:9]
-        
+        print('------- ',result)
         
         if len(result) == 0:
             nr = 'Sorry'

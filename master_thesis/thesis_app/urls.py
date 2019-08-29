@@ -25,5 +25,5 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# handler404 = views.error_404
-# handler500 = views.error_500
+handler404 = views.error_404
+handler500 = views.error_500
