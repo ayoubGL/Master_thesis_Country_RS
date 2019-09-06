@@ -51,36 +51,44 @@
             });
         }); /*Scroll to top when arrow up clicked END*/
     </script>
+
+
+    <!-- --------------------------------------- -->
+
+
+
+
 </head>
 
 <body id="page-top" style="background-color: rgb(253, 253, 253, 0.945);">
     <!-- Navigation -->
 
 
-    <div class="navbar-fixed">
-
-        <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
-            <div class="container">
-                <a href="{% url 'thesis_app:home' %}" class="brand-logo"><img src="{% static 'img/logo.png' %}" alt="" width="140"></a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
+    <div>
+        <nav class="navbar navbar-dark navbar-expand-md navbar-no-bg " role="navigation ">
+            <div class="container-fluid">
+                <div class="navbar-header ">
+                    <a href="{% url 'thesis_app:home' %} " class="brand-logo "><img src="{% static 'img/logo.png' %} " alt=" " width="140 "></a>
+                </div>
+                <div class="navbar-collapse " id="navbarNav ">
+                    <ul class="nav navbar-nav ml-auto ">
                         <li class="nav-item">
-                            <span> <a class="nav-link btn btn-outline-info" href="{% url 'thesis_app:howWorks' %}">
-                                            <h5>How Works</h5>
-                                        
-                                        
-                                        </a></span>
+                            <span> <a class="nav-link btn btn-outline-secondary " href="{% url 'thesis_app:howWorks' %} ">
+                                                            <h5>How Works</h5>
+                                                        
+                                                        
+                                                        </a></span>
                         </li>
                         <li class="nav-item">
                             {% if user.is_authenticated %}
                             <span>
-                                            <a class="nav-link btn btn-outline-info" href="{% url 'logout' %}">
-                                                <h5>Logout</h5>
-                                            </a>
-                                        </span> {% else %}<span>
-                                        <a class="nav-link btn btn-outline-info" href="{% url 'login'  %}">
-                                            <h5>Login</h5>
-                                        </a> </span>{% endif %}
+                                                            <a class="nav-link btn btn-outline-secondary " href="{% url 'logout' %} ">
+                                                                <h5>Logout</h5>
+                                                            </a>
+                                                        </span> {% else %}<span>
+                                                        <a class="nav-link btn btn-outline-secondary " href="{% url 'login' %} ">
+                                                            <h5>Login</h5>
+                                                        </a> </span>{% endif %}
 
                         </li>
                     </ul>
@@ -95,15 +103,15 @@
     <br>
     <br>
     <br>
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <div class="container " style="color:#000000; ">
             <br>
-            <div class="col-lg-12 col-lg-offset-4">
+            <div class="col-lg-12 col-lg-offset-4 container-fluid ">
                 <br>
                 <div class="div-cl-4">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 20%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                            <b class="font-weight-bold" style="font-size: 15px;">Step 1 out of 5</b>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar " style="width: 20% " aria-valuenow="10 " aria-valuemin="0 " aria-valuemax="100 ">
+                            <b class="font-weight-bold " style="font-size: 15px; ">Step 1 out of 5</b>
                         </div>
                     </div>
                     <br>
@@ -111,119 +119,192 @@
                     <h3>Please let us know a bit about yourself !</h3>
                     <br>
                     <br>
-                    <p>
-                        <form method="POST" action="">
-                            {% csrf_token %}
 
-                            <div class="container">
-                                <!---------------- Gender  --------------->
-                                <div>
-                                    <label for="gender" class="font-weight-bold"> Gender <i class="text-primary">*</i> :</label> <br>{% for radio in form.gender %}
-                                    <fieldset>
-                                        <div class="some-class">
-                                            {{ radio}}
-                                        </div>
-                                        {% endfor %}
+                    <!-- <fieldset> -->
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <br>
+                        <!---------------- Gender  --------------->
+                        <div class="container-fluid">
+                            <p style="float: left; clear:left" for="gender" class="font-weight-bold "> Gender <i class="text-primary ">*</i> :</p>
+                            <br> {% for radio in form.gender %}
 
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="age" class="font-weight-bold left"> Age<i class="text-primary">*</i> :</label>
-                                    <br>
-                                    <fieldset>
-                                        <div>
-                                            {{form.age}}
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="age" class="font-weight-bold left"> Country <i class="text-primary">*</i> :</label>
-                                    <br>
-                                    <fieldset>
-                                        <div>
-                                            {{form.country}}
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as open to experience, imaginative <i class="text-primary">*</i> :</label>
-                                    <br>
-                                    <br>{% for radio in form.imaginative %}
-                                    <fieldset>
-                                        <div class="some-class">
-                                            {{ radio}}
-                                        </div>
-                                        {% endfor %}
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as dependable, organized <i class="text-primary">*</i> :</label>
-                                    <br>
-                                    <br>{% for radio in form.organized %}
-                                    <fieldset>
-                                        <div class="some-class">
-                                            {{ radio}}
-                                        </div>
-                                        {% endfor %}
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as extroverted, enthusiastic <i class="text-primary">*</i> :</label>
-                                    <br>
-                                    <br>{% for radio in form.enthusiastic %}
-                                    <fieldset>
-                                        <div class="some-class">
-                                            {{ radio}}
-                                        </div>
-                                        {% endfor %}
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as agreeable, kind <i class="text-primary">*</i> :</label>
-                                    <br>
-                                    <br>{% for radio in form.kind %}
-                                    <fieldset>
-                                        <div class="some-class">
-                                            {{ radio}}
-                                        </div>
-                                        {% endfor %}
-                                    </fieldset>
-                                </div>
-                                <br>
-                                <div>
-                                    <label for="gender" class="font-weight-bold"> I see myself as emotionally stable, calm <i class="text-primary">*</i> :</label>
-                                    <br>
-                                    <br>{% for radio in form.calm %}
-                                    <fieldset>
-                                        <div class="some-class">
-                                            {{ radio}}
-                                        </div>
-                                        {% endfor %}
-                                    </fieldset>
-                                </div>
-
-
-
-
-
-                                <!-- ------------------------------ -->
-
-                                <!-- ------------------------------- -->
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <button type="submit" name="submit" class="btn btn-block btn-outline-info"> <i><h5 class=" font-weight-bold"><br>Next<br></h5></i></button>
+                            <div class="container-fluid">
+                                <ul>
+                                    <li style="list-style:none; text-align: left;float: left;
+                                                                                                clear: left; ">
+                                        <label class="choice" for="{{ radio.id_for_label }}">
+                                                                                        
+                                                                {{radio.tag}}
+                                                                {{radio.choice_label}}                                    
+                                                            </label>
+                                    </li>
+                                </ul>
                             </div>
-                        </form>
+                            {% endfor %}
 
-                    </p>
+                            <!-- /</fieldset> -->
+                        </div>
+                        <div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                        <!---------------- Age  --------------->
+                        <div class="container-fluid ">
+                            <label style="float: left; clear:left" for="age " class="font-weight-bold "> Age<i class="text-primary "> *</i> :</label>
+                            <br>
+                            <br>
+                            <!-- <fieldset> -->
+                            <div class="col-sm ">
+
+
+                                {{form.age}}
+
+
+                            </div>
+                            <!-- </fieldset> -->
+                        </div>
+                        <br>
+                        <br>
+                        <div class="container-fluid ">
+                            <label style="float: left; clear:left" for="country " class="font-weight-bold "> Country <i class="text-primary ">*</i> :</label>
+                            <br>
+                            <br>
+                            <!-- <fieldset> -->
+
+                            <div class="col-sm ">
+                                {{form.country}}
+                            </div>
+                            <!-- </fieldset> -->
+                        </div>
+
+                        <!---------------- Country  --------------->
+
+                        <br>
+                        <div class="container-fluid ">
+                            <!---------------- Imaginative  --------------->
+
+                            <p style="float: left; clear:left" for="imaginative " class="font-weight-bold "> I see myself as open to experience, imaginative<i class="text-primary ">*</i> :</p>
+
+                            <br> {% for radio in form.imaginative %}
+
+                            <div class="container-fluid ">
+                                <ul>
+                                    <li style="list-style:none; text-align: left;float: left;
+                                                                                                    clear: left; ">
+                                        <label class="choice" for="{{ radio.id_for_label }}">
+                                                                                            
+                                                                    {{radio.tag}}
+                                                                    {{radio.choice_label}}                                    
+                                                                </label>
+                                    </li>
+                                </ul>
+                            </div>
+                            {% endfor %}
+
+                            <!-- /</fieldset> -->
+
+                        </div>
+                        <div class="container-fluid ">
+                            <!---------------- organized  --------------->
+                            <p style="float: left; clear:left" for="organized" class="font-weight-bold "> I see myself as dependable, organized <i class="text-primary ">*</i> :</p>
+
+                            <br>{% for radio in form.organized %}
+                            <!-- <fieldset> -->
+                            <div class="container-fluid ">
+                                <ul>
+                                    <li style="list-style:none; text-align: left;float: left;
+                                                                                                    clear: left; ">
+                                        <label class="choice" for="{{ radio.id_for_label }}">
+                                                                                            
+                                                                    {{radio.tag}}
+                                                                    {{radio.choice_label}}                                    
+                                                                </label>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            {% endfor %}
+                            <!-- </fieldset> -->
+                        </div>
+                        <br>
+                        <br>
+                        <div class="container-fluid ">
+                            <!---------------- enthusiastic  --------------->
+                            <p style="float: left; clear:left" for="enthusiastic " class="font-weight-bold "> I see myself as extraverted, enthusiastic <i class="text-primary ">*</i> :</p>
+
+                            <br>{% for radio in form.enthusiastic %}
+                            <!-- <fieldset> -->
+                            <div class="container-fluid ">
+                                <ul>
+                                    <li style="list-style:none; text-align: left;float: left;
+                                                                                                    clear: left; ">
+                                        <label class="choice" for="{{ radio.id_for_label }}">
+                                                                                            
+                                                                    {{radio.tag}}
+                                                                    {{radio.choice_label}}                                    
+                                                                </label>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            {% endfor %}
+                            <!-- </fieldset> -->
+                        </div>
+                        <div class="container-fluid ">
+                            <p style="float: left; clear:left" for="gender " class="font-weight-bold "> I see myself as agreeable, kind <i class="text-primary ">*</i> :</p>
+
+                            <br>{% for radio in form.kind %}
+                            <!-- <fieldset> -->
+                            <div class="container-fluid ">
+                                <ul>
+                                    <li style="list-style:none; text-align: left;float: left;
+                                                                                                    clear: left; ">
+                                        <label class="choice" for="{{ radio.id_for_label }}">
+                                                                                            
+                                                                    {{radio.tag}}
+                                                                    {{radio.choice_label}}                                    
+                                                                </label>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            {% endfor %}
+                            <!-- </fieldset> -->
+                        </div>
+                        <div class="container-fluid ">
+                            <p style="float: left; clear:left" for="gender " class="font-weight-bold "> I see myself as emotionally stable, calm <i class="text-primary ">*</i> :</p>
+
+                            <br>{% for radio in form.calm %}
+                            <!-- <fieldset> -->
+                            <div class="container-fluid ">
+                                <ul>
+                                    <li style="list-style:none; text-align: left;float: left;
+                                                                                                    clear: left; ">
+                                        <label class="choice" for="{{ radio.id_for_label }}">
+                                                                                            
+                                                                    {{radio.tag}}
+                                                                    {{radio.choice_label}}                                    
+                                                                </label>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            {% endfor %}
+                            <!-- </fieldset> -->
+                        </div>
+                        <br>
+                        <br>
+
+                        <div class="container-fluid">
+                            <button type="submit " name="submit " class="btn btn-block btn-outline-info "> <i><h5 class=" font-weight-bold "><br>Next<br></h5></i></button>
+                        </div>
+
+                    </form>
+                    <!-- </fieldset> -->
+
                     <br>
                     <br>
                 </div>
@@ -239,15 +320,14 @@
     <br>
 
 
-
-
     <a id="back2Top" title="Back to top" href="#">&#10148;</a>
-    <footer class="footer-container">
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    all you need is <img src="{% static 'img/peace.png' %}" width="50px"> 2019 &copy;
+    <footer class="footer-container ">
+
+        <div class="container ">
+            <div class="row ">
+                <div class="col ">
+                    all you need is <img src="{% static 'img/peace.png' %} " width="50px "> 2019 &copy;
                 </div>
 
             </div>

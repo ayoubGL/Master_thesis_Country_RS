@@ -63,30 +63,32 @@
     <!-- Navigation -->
 
 
-    <div class="navbar-fixed">
-
-        <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
-            <div class="container">
-                <a href="{% url 'thesis_app:home' %}" class="brand-logo"><img src="{% static 'img/logo.png' %}" alt="" width="140"></a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
+    <!-- <div class="navbar-fixed container-fluid"> -->
+    <div>
+        <nav class="navbar navbar-dark navbar-expand-md navbar-no-bg " role="navigation ">
+            <div class="container-fluid">
+                <div class="navbar-header ">
+                    <a href="{% url 'thesis_app:home' %} " class="brand-logo "><img src="{% static 'img/logo.png' %} " alt=" " width="140 "></a>
+                </div>
+                <div class="navbar-collapse " id="navbarNav ">
+                    <ul class="nav navbar-nav ml-auto ">
                         <li class="nav-item">
-                            <span> <a class="nav-link btn btn-outline-info" href="{% url 'thesis_app:howWorks' %}">
-                                            <h5>How Works</h5>
-                                        
-                                        
-                                        </a></span>
+                            <span> <a class="nav-link btn btn-outline-secondary " href="{% url 'thesis_app:howWorks' %} ">
+                                                                        <h5>How Works</h5>
+                                                                    
+                                                                    
+                                                                    </a></span>
                         </li>
                         <li class="nav-item">
                             {% if user.is_authenticated %}
                             <span>
-                                            <a class="nav-link btn btn-outline-info" href="{% url 'logout' %}">
-                                                <h5>Logout</h5>
-                                            </a>
-                                        </span> {% else %}<span>
-                                        <a class="nav-link btn btn-outline-info" href="{% url 'login'  %}">
-                                            <h5>Login</h5>
-                                        </a> </span>{% endif %}
+                                                                        <a class="nav-link btn btn-outline-secondary " href="{% url 'logout' %} ">
+                                                                            <h5>Logout</h5>
+                                                                        </a>
+                                                                    </span> {% else %}<span>
+                                                                    <a class="nav-link btn btn-outline-secondary " href="{% url 'login' %} ">
+                                                                        <h5>Login</h5>
+                                                                    </a> </span>{% endif %}
 
                         </li>
                     </ul>
@@ -94,13 +96,13 @@
             </div>
         </nav>
     </div>
+    <!-- </div> -->
 
     <br>
     <br>
     <br>
     <br>
-    <br>
-    <br>
+
     <div class="container-fluid">
         <!-- ------------------------------------------------------------------- -->
 
@@ -120,94 +122,508 @@
                     <br>
                     <h4>You may be interested in these countries !!</h4>
                     <br>
+                    <h5 class="choice">Please scroll down to let us how you like these result</h5>
                     <br>
-                    <form method="POST" action="">
-                        <p>
-                            <!-- ------------- card ---------------------------------- -->
-                            <div class="container">
-                                <br>{% csrf_token %}
-                                <div class="row">
 
-                                    <div class="col-md-4">
 
-                                        <div class="card text-primary border-info">
-                                            <div class="card-header bg-info text-center text-white">
-                                                <h4>List 1</h4>
-                                            </div>
-                                            <div class="card-body">
+                    <!-- ------------- card ---------------------------------- -->
+                    <div class="container-fluid">
+                        <br>
+                        <div class="row">
 
-                                                <ul class="list-group list-group-flush">
-                                                    {%for i in Fst_3%}
-                                                    <div class="row">
-                                                        <div class="col-lg-8">
-                                                            <li class="list-group-item">{{i}} </li>
-                                                        </div>
-                                                        <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
-                                                            height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
-                                                    </div>
-                                                    {%endfor%}
-                                                </ul>
-                                            </div>
-                                        </div>
+                            <div class="col-md-4">
+                                <div class="card text-primary border-info">
+                                    <div class="card-header bg-info text-center text-white ">
+                                        <h4>List 1</h4>
                                     </div>
+                                    <div class="card-body">
 
-                                    <div class=" col-md-4 ">
-                                        <div class="card text-primary border-info ">
-                                            <div class="card-header bg-info text-center text-white ">
-                                                <h4>List 2</h4>
+                                        <ul class="list-group list-group-flush ">
+                                            {%for i in Fst_3%}
+                                            <div class="row">
+                                                <div class="col">
+                                                    <li class="list-group-item">{{i}} </li>
+                                                </div>
+                                                <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
+                                                                    height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
                                             </div>
-                                            <div class="card-body">
-
-                                                <ul class="list-group list-group-flush ">
-                                                    {%for i in Snd_3%}
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <li class="list-group-item">{{i}} </li>
-                                                        </div>
-                                                        <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
-                                                            height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
-                                                    </div>
-                                                    {%endfor%}
-                                                </ul>
-                                            </div>
-                                        </div>
-
+                                            {%endfor%}
+                                        </ul>
                                     </div>
-
-                                    <div class="col-md-4 ">
-
-                                        <div class="card text-primary border-info ">
-                                            <div class="card-header bg-info text-center text-white ">
-                                                <h4>List 3</h4>
-                                            </div>
-                                            <div class="card-body ">
-
-                                                <ul class="list-group list-group-flush ">
-                                                    {%for i in Trd_3%}
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <li class="list-group-item">{{i}} </li>
-                                                        </div>
-                                                        <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
-                                                        height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
-                                                    </div>
-                                                    {%endfor%}
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
                                 </div>
 
                             </div>
-                            <!-- -------------------------------------------------- -->
-                        </p>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+
+
+                            <div class="col-md-4">
+                                <div class="card text-primary border-info ">
+                                    <div class="card-header bg-info text-center text-white ">
+                                        <h4>List 2</h4>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <ul class="list-group list-group-flush ">
+                                            {%for i in Snd_3%}
+                                            <div class="row">
+                                                <div class="col">
+                                                    <li class="list-group-item">{{i}} </li>
+                                                </div>
+                                                <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
+                                                            height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
+                                            </div>
+                                            {%endfor%}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="card text-primary border-info ">
+                                    <div class="card-header bg-info text-center text-white ">
+                                        <h4>List 3</h4>
+                                    </div>
+                                    <div class="card-body ">
+
+                                        <ul class="list-group list-group-flush ">
+                                            {%for i in Trd_3%}
+                                            <div class="row">
+                                                <div class="col">
+                                                    <li class="list-group-item">{{i}} </li>
+                                                </div>
+                                                <div class="col"><span><img  style="border-radius: 50%; width: 30px; 
+                                                        height: 30px; " src="{% static 'countries_flag/'%}{{i}}.png"  /> </span></div>
+                                            </div>
+                                            {%endfor%}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- ------------------Evaluate ------------------------ -->
+                    <br>
+                    <br>
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <div class="container-fluid ">
+                            <h3>Let us know how we did !!</h3>
+                            <br>
+                            <div class="container-fluid">
+                                <p style="float: left;" for="appealed_list " class="font-weight-bold "> Which list has more selections that you find appealing ?<i class="text-primary ">*</i> :</p>
+                                <br> {% for radio in form.appealed_list %}
+
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                    
+                                    
+                                                        {{radio.tag}}
+                                                        {{radio.choice_label}}
+                                               
+                                            
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% endfor %}
+
+                                <!-- /</fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- bad_suggestions --------------->
+                                <p style="float: left;" for="bad_suggestions" class="font-weight-bold "> Which list has more obviously bad suggestions for you ? <i class="text-primary ">*</i> :</p>
+                                <br>{% for radio in form.bad_suggestions %}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                            
+                                            
+                                                                {{radio.tag}}
+                                                                {{radio.choice_label}}
+                                                       
+                                                    
+                                                    </label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="similar_result" class="font-weight-bold "> Which list has more countries that are similar to each other ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.similar_result %}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                    
+                                                    
+                                                                        {{radio.tag}}
+                                                                        {{radio.choice_label}}
+                                                               
+                                                            
+                                                            </label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <!-- varied_selection -->
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" class="font-weight-bold "> Which list has a more varied selection of countries ?<i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.varied_selection %}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                            
+                                                            
+                                                                                {{radio.tag}}
+                                                                                {{radio.choice_label}}
+                                                                       
+                                                                    
+                                                                    </label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" class="font-weight-bold "> Which list has countries that match a wider variety of preferences ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.wider_preference%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="better_reflection" class="font-weight-bold "> Which list better reflects your preferences in countries ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.better_reflection%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="more_personalized" class="font-weight-bold "> Which list seems more personalized to your countries ratings ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.more_personalized%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="more_mainstream" class="font-weight-bold "> Which list represents more mainstream ratings instead of your own ? <i class="text-primary ">*</i> :</p>
+                                <br>
+                                <br>{% for radio in form.more_mainstream%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="better_help" class="font-weight-bold "> Which list would better help you find countries to consider ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.better_help%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="recommended_list" class="font-weight-bold "> Which list would you be more likely to recommend to your friends ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.recommended_list%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="not_expect" class="font-weight-bold "> Which list has more countries you did not expect ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.not_expect%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="familiar_list" class="font-weight-bold "> Which list has more countries that are familiar to you ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.familiar_list%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="surprising_list" class="font-weight-bold "> Which list has more pleasantly surprising countries ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.surprising_list%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="container-fluid ">
+                                <!---------------- similar_result --------------->
+                                <p style="float: left;" for="surprising_list" class="font-weight-bold "> Which list provides fewer new suggestions ? <i class="text-primary ">*</i> :</p>
+
+                                <br>{% for radio in form.fewer_suggestions%}
+                                <!-- <fieldset> -->
+                                <div class="container-fluid ">
+                                    <ul>
+                                        <li style="list-style:none; text-align: left;float: left;
+                                                                        clear: left; ">
+                                            <label class="choice" for="{{ radio.id_for_label }}">
+                                                                    
+                                                                    
+                                                                                        {{radio.tag}}
+                                                                                        {{radio.choice_label}}
+                                                                               
+                                                                            
+                                                                            </label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                {% endfor %}
+                                <!-- </fieldset> -->
+                            </div>
+                        </div>
+                        <div class="container-fluid ">
+                            <ul>
+                                <li style="list-style:none; text-align: left;float: left;
+                                                                                    clear: left; color:#ffffff">
+
+
+
+                                    .
+
+                                </li>
+                            </ul>
+
+                        </div>
                         <button type="submit " name="submit " class="btn btn-block btn-outline-info "> <i><h5 class=" font-weight-bold "><br>Next<br></h5></i></button>
+
                     </form>
 
                 </div>
@@ -220,7 +636,7 @@
     <br>
     <br>
     <br>
-    <a id="back2Top " title="Back to top " href="# ">&#10148;</a>
+    <a id="back2Top" title="Back to top" href="#">&#10148;</a>
 
     <footer class="footer-container ">
 

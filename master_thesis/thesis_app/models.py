@@ -271,7 +271,7 @@ class usabilitySurvey(models.Model):
         blank=False
     )
     
-    comment = models.CharField(max_length = 250,blank  = True)
+    comment = models.CharField(max_length = 500,blank  = True)
     
     email = models.EmailField(max_length = 150,blank  = True)
     
@@ -288,6 +288,7 @@ class usabilitySurvey(models.Model):
 
 # --------------- The result -----------------------
 class user_result(models.Model):
+    
     title = models.CharField(
         max_length = 20,
         editable = False,
@@ -309,3 +310,123 @@ class user_result(models.Model):
     class Meta:
         verbose_name= 'user_result'
         db_table = 'user_result'
+    
+class evaluate_result(models.Model):
+    title = models.CharField(
+        max_length = 20,
+        editable = False,
+        default = 'evaluate_result'
+    )
+    user_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    created = models.DateTimeField(auto_now_add=True)
+    
+    appealed_list = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'appealed_list',
+        default=None,
+        blank=False
+    )
+    
+    bad_suggestions = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'bad_suggestions',
+        default=None,
+        blank=False
+    )
+    similar_result = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'similar_result',
+        default=None,
+        blank=False
+    )
+    varied_selection = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'varied_selection',
+        default=None,
+        blank=False
+    )
+    wider_preference = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'wider_preference',
+        default=None,
+        blank=False
+    )
+    better_reflection = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'wider_preference',
+        default=None,
+        blank=False
+    )
+    more_personalized = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'more_personalized',
+        default=None,
+        blank=False
+    )
+    more_mainstream = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'more_mainstream',
+        default=None,
+        blank=False
+    )
+    better_help = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'better_help',
+        default=None,
+        blank=False
+    )
+    
+    recommended_list = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'recomend_to_Friend',
+        default=None,
+        blank=False
+    )
+    
+    not_expect = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'not_expect',
+        default=None,
+        blank=False
+    )
+    familiar_list = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'familiar_list',
+        default=None,
+        blank=False
+    )
+    surprising_list = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name = 'surprising_list',
+        default=None,
+        blank=False
+    )
+    fewer_suggestions = models.CharField(
+        choices = list_choice,
+        max_length = 20,
+        verbose_name='fewer_suggestions',
+        default=None,
+        blank=False
+    )
+    class Meta:
+        verbose_name= 'Evaluate_result'
+        ordering = ['user_id']
+        db_table = 'Evaluate_result'
+    def __str__(self):
+        return "{}".format(self.user_id.username)

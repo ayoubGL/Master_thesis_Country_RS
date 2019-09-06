@@ -163,6 +163,7 @@
     .some-class {
         float: left;
         clear: none;
+        padding-left: 20px;
     }
     
     label {
@@ -255,4 +256,36 @@
     #back2Top:hover {
         background-color: #DDF;
         color: #000;
+    }
+    
+    .form-radio {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: inline-block;
+        position: relative;
+        background-color: rgb(221, 221, 221);
+        color: #666;
+        border-radius: 50px;
+        border: 1px solid rgb(156, 156, 156);
+        cursor: auto;
+        margin-right: 7px;
+        outline: none;
+    }
+    
+    .form-radio:checked::before {
+        position: absolute;
+        color: #00ace6;
+        font: 40px/0.5 'Open Sans', sans-serif;
+        left: 1px;
+        top: 1px;
+        content: '\02022';
+        transform: rotate(40deg);
+    }
+    
+    .choice {
+        font: 15px/1.7 'Open Sans', sans-serif;
+        color: #333;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }

@@ -20,9 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '3cuygwtq284hk3nt+=0phwsvt@oz0b$p8_d@9ehps34p8!03-#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['thesis.yourdest.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'crispy_forms_materialize',
     'thesis_app',
     'widget_tweaks',
     'multiselectfield',
@@ -83,8 +82,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'master_thesis_django',
-        'USER': 'ayoub',
-        'PASSWORD': 'Test1234',
+        'USER': 'root',
+        'PASSWORD': 'par4.',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         
     },

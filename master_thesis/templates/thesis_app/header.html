@@ -62,30 +62,32 @@
     <!-- Navigation -->
 
 
-    <div class="navbar-fixed">
-
-        <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg">
-            <div class="container">
-                <a href="{% url 'thesis_app:home' %}" class="brand-logo"><img src="{% static 'img/logo.png' %}" alt="" width="140"></a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
+    <!-- <div class="navbar-fixed container-fluid"> -->
+    <div>
+        <nav class="navbar navbar-dark fixed-top navbar-expand-md navbar-no-bg " role="navigation ">
+            <div class="container-fluid">
+                <div class="navbar-header ">
+                    <a href="{% url 'thesis_app:home' %} " class="brand-logo "><img src="{% static 'img/logo.png' %} " alt=" " width="140 "></a>
+                </div>
+                <div class="navbar-collapse " id="navbarNav ">
+                    <ul class="nav navbar-nav ml-auto ">
                         <li class="nav-item">
-                            <span> <a class="nav-link btn btn-outline-info" href="{% url 'thesis_app:howWorks' %}">
-                                            <h5>How Works</h5>
-                                        
-                                        
-                                        </a></span>
+                            <span> <a class="nav-link btn btn-outline-secondary " href="{% url 'thesis_app:howWorks' %} ">
+                                                                                    <h5>How Works</h5>
+                                                                                
+                                                                                
+                                                                                </a></span>
                         </li>
                         <li class="nav-item">
                             {% if user.is_authenticated %}
                             <span>
-                                            <a class="nav-link btn btn-outline-info" href="{% url 'logout' %}">
-                                                <h5>Logout</h5>
-                                            </a>
-                                        </span> {% else %}<span>
-                                        <a class="nav-link btn btn-outline-info" href="{% url 'login'  %}">
-                                            <h5>Login</h5>
-                                        </a> </span>{% endif %}
+                                                                                    <a class="nav-link btn btn-outline-secondary " href="{% url 'logout' %} ">
+                                                                                        <h5>Logout</h5>
+                                                                                    </a>
+                                                                                </span> {% else %}<span>
+                                                                                <a class="nav-link btn btn-outline-secondary " href="{% url 'login' %} ">
+                                                                                    <h5>Login</h5>
+                                                                                </a> </span>{% endif %}
 
                         </li>
                     </ul>
@@ -93,6 +95,7 @@
             </div>
         </nav>
     </div>
+    <!-- </div> -->
 
     <br>
     <br>
@@ -100,7 +103,7 @@
     <br>
     <br>
     <br>
-    <div class="container-fuild">
+    <div class="container-fluid">
 
         {% block content %} {% endblock %}
     </div>

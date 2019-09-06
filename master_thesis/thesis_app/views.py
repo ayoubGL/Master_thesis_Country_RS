@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
-from .forms import step_1Form, step_2Form,countriesFormset,UsabilitySurveyForm
+from .forms import step_1Form, step_2Form,countriesFormset,UsabilitySurveyForm,Evaluate_resultForm
 from .choices import *
 from .models import user_rate,country_name,step_1,step_2,usabilitySurvey,user_result
 from django.forms import formset_factory
@@ -131,15 +131,15 @@ def result(request):
         auth_user = request.user
         #add rating of curent user to the csv file
         target_user_id = add_to_csv(auth_user)
-        
+        #print('--------------',target_user_id)
         # compute the recomendation
         recom_alg  = ['KNNBaseline_user','NormalPredictor','SVD']
         recom_size = 3
         top_n_for_target_user = []
 
         for reco_algo in recom_alg:
-            top_n_for_target_user.append(get_top_n_for_user(target_user_id,reco_algo, recom_size))
-        
+            top_n_for_target_user.append(get_top_n_for_user(auth_user.id,reco_algo, recom_size))
+
         
         # get country name
         recommendations = []
@@ -155,12 +155,21 @@ def result(request):
             print('')
         else :
             return redirect('thesis_app:personal_info')
-        if request.method == 'POST':
+        if request.method == "POST":
+            form = Evaluate_resultForm(request.POST)
+            
+            if form.is_valid():
+            
+                answer1  = form.save(commit = False)
+                answer1.user_id = request.user  
+                answer1.save()
                 return redirect('thesis_app:UsabilitySurvey')
+            else:
+                print("------------------------- HERE Else")
     else:
         return redirect('thesis_app:login')   
     
-    #save result to database
+    # save result to database
     recom_algorithm  = [recom_alg[0],recom_alg[0],recom_alg[0],
                          recom_alg[1],recom_alg[1],recom_alg[1],recom_alg[2],recom_alg[2],recom_alg[2]]
     i = 0
@@ -171,9 +180,9 @@ def result(request):
         user_recomded.algorithm = al
         user_recomded.save()
    
-    # rated_1_3 =[1,2,3]  
-    # rated_3_6 =[1,2,3]  
-    # rated_6_9 =[1,2,3]  
+    rated_1_3 =[]
+    rated_3_6 =[]  
+    rated_6_9 =[]  
 
     for i in recommended_countries[:3]:
         rated_1_3.append(i[0])
@@ -184,7 +193,12 @@ def result(request):
         
     for i in recommended_countries[6:9]:
         rated_6_9.append(i[0])
-    args = {"Fst_3":rated_1_3,"Snd_3":rated_3_6, "Trd_3":rated_6_9,"user":request.user}   
+        
+    print("----Fst_3---",rated_1_3)
+    print("-----Snd_3---------",rated_3_6)
+    print( "------Trd_3--------",rated_6_9)
+    form  = Evaluate_resultForm(request.POST or None)
+    args = {"Fst_3":rated_1_3,"Snd_3":rated_3_6, "Trd_3":rated_6_9,"user":request.user,"form":form} 
     return render(request, 'thesis_app/result.html', args)
 
 

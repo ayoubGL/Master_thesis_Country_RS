@@ -25,10 +25,10 @@ Gender_choices = [
     
 Age_choices = [
         ('under_18','Under 18'),
-        ('b18_24','18 24'),
-        ('b25_35','25 35'),
-        ('b35_45','35 45'),
-        ('b45_55','45 55'),
+        ('b18_24','18_24'),
+        ('b25_35','25_35'),
+        ('b35_45','35_45'),
+        ('b45_55','45_55'),
         ('bover_55','Over 55')
     ]
 (Str_vb_D,Str_vb_N)= ('Strongly_Disagree','Strongly Disagree')
@@ -100,6 +100,17 @@ features_choices = [
 (Working_atmosphere, 'Working Atmosphere'),
 (Shorter_Distance , 'Shorter Distance'),
 (Crime_rate, 'Crime Rate')
+]
+
+#--------------------- List choice ----------------
+List_1 = "List 1"
+List_2 = "List 2"
+List_3 = "List 3"
+
+list_choice = [
+    (List_1,"List 1"),
+    (List_2,"List 2"),
+    (List_3,"List 3")
 ]
 
 # ------------------------ Usability Survey ------------------------

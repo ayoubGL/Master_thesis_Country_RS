@@ -23,7 +23,8 @@ def add_to_csv(auth_user):
         obj = []
         user_id = str(field.user_id.id)
         obj.append(user_id)
-        obj.append(str(field.id))
+        #print(field.countries_name_id_id,'.............')
+        obj.append(str(field.countries_name_id_id))
         obj.append(str(field.country_rating*20))
         obj.append(str(datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
         fields.append(obj)
@@ -34,14 +35,14 @@ def add_to_csv(auth_user):
             writer = csv.writer(f)
             writer.writerow(user_obj)
     
-    # test if well appended
-    nok = '---------> not appended'
-    with open(r'static/CRdata.csv', 'r') as f:    
-        if (list(csv.reader(f))[-1][0]) == user_id :
-            return  user_id
-        else:
-            return nok 
-    
+    # # test if well appended
+    # nok = '---------> not appended'
+    # with open(r'static/CRdata.csv', 'r') as f:    
+    #     if (list(csv.reader(f))[-1][0]) == user_id :
+    #         return  user_id
+    #     else:
+    #         return nok 
+    return 'ok'
     
 def get_top_n_for_user(target_user_id, recom_alg, recom_size):
     
