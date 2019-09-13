@@ -273,7 +273,7 @@ class usabilitySurvey(models.Model):
     
     comment = models.CharField(max_length = 500,blank  = True)
     
-    email = models.EmailField(max_length = 150,blank  = True)
+    #email = models.EmailField(max_length = 150,blank  = True)
     
     
     

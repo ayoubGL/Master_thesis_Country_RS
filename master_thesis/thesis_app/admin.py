@@ -14,7 +14,7 @@ class user_rateAdmin(admin.ModelAdmin):
     list_display = ('user_id','created','countries_name_id','country_rating')
 
 class usabilitySurveyAdmin(admin.ModelAdmin):
-    list_display = ('user_id','created','email','usage_frequency','system_complexity','usage_ease',
+    list_display = ('user_id','created','usage_frequency','system_complexity','usage_ease',
                     'need_help','functions_integrated','system_inconsistency','learn_to_use','system_inconvenient','confident_level','learning_before')
 
 class user_resultAdmin(admin.ModelAdmin):

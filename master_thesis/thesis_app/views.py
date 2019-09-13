@@ -134,7 +134,7 @@ def result(request):
         #print('--------------',target_user_id)
         # compute the recomendation
         recom_alg  = ['KNNBaseline_user','NormalPredictor','SVD']
-        recom_size = 3
+        recom_size = 5
         top_n_for_target_user = []
 
         for reco_algo in recom_alg:
@@ -184,19 +184,19 @@ def result(request):
     rated_3_6 =[]  
     rated_6_9 =[]  
 
-    for i in recommended_countries[:3]:
+    for i in recommended_countries[:5]:
         rated_1_3.append(i[0])
        
         
-    for i in recommended_countries[3:6]:
+    for i in recommended_countries[5:10]:
         rated_3_6.append(i[0])
         
-    for i in recommended_countries[6:9]:
+    for i in recommended_countries[10:15]:
         rated_6_9.append(i[0])
         
-    print("----Fst_3---",rated_1_3)
-    print("-----Snd_3---------",rated_3_6)
-    print( "------Trd_3--------",rated_6_9)
+    # print("----Fst_3---",rated_1_3)
+    # print("-----Snd_3---------",rated_3_6)
+    # print( "------Trd_3--------",rated_6_9)
     form  = Evaluate_resultForm(request.POST or None)
     args = {"Fst_3":rated_1_3,"Snd_3":rated_3_6, "Trd_3":rated_6_9,"user":request.user,"form":form} 
     return render(request, 'thesis_app/result.html', args)

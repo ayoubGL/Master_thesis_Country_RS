@@ -134,11 +134,11 @@ class UsabilitySurveyForm(forms.ModelForm):
             'confident_level':forms.RadioSelect(attrs={'class':'form-radio'}),
             'learning_before':forms.RadioSelect(attrs={'class':'form-radio'}),
             'comment':forms.Textarea(attrs={'class':'form-control'}),
-            'email':forms.EmailInput(attrs={'class':'form-control'}),
+            #'email':forms.EmailInput(attrs={'class':'form-control'}),
         }   
         labels  = {
             'comment': '',
-            'email':'',
+            #'email':'',
         }
         
     helper = FormHelper()
