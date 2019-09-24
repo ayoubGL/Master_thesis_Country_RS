@@ -53,18 +53,21 @@ def get_top_n_for_user(target_user_id, recom_alg, recom_size):
     testset = trainset.build_anti_testset()
     
     
-    if(recom_alg == 'KNNBaseline_user'):
+    if(recom_alg == 'KNNBaseline'):
     
         similarity = {'name': 'cosine',
             'user_based': True  # compute  similarities between users
             }
         algo = KNNBaseline(sim_options=similarity)
+        
     
     
-    elif(recom_alg == 'KNNBaseline'):
-        algo = KNNBaseline()
+    elif(recom_alg == 'CoClustering'):
+        algo = CoClustering()
+        
     else:
         algo = SVD()
+        
 
     algo.fit(trainset)
     predictions  = algo.test(testset)

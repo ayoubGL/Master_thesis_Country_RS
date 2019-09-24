@@ -33,7 +33,7 @@ Age_choices = [
     ]
 (Str_vb_D,Str_vb_N)= ('Strongly_Disagree','Strongly Disagree')
 (Dis_vb_D,Dis_vb_N)= ('Disagree','Disagree')
-(Nt_vb_D,Nt_vb_N)= ('Natural','Natural')
+(Nt_vb_D,Nt_vb_N)= ('Neutral','Neutral')
 (Ag_vb_D,Ag_vb_N)= ('Agree','Agree')
 (StrAG_vb_D,StrAG_vb_N)= ('Strongly_Agree','Strongly Agree')
 

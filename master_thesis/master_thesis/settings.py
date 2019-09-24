@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'master_thesis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'master_thesis_django',
+        'NAME': 'master_thesis_django_2',
         'USER': 'root',
         'PASSWORD': 'par4.',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on

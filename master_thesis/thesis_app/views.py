@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.template import RequestContext
 from .forms import step_1Form, step_2Form,countriesFormset,UsabilitySurveyForm,Evaluate_resultForm
 from .choices import *
-from .models import user_rate,country_name,step_1,step_2,usabilitySurvey,user_result
+from .models import user_rate,country_name,step_1,step_2,usabilitySurvey,user_result,evaluate_result
 from django.forms import formset_factory
 from django import forms
 from sre_compile import _compile_info
@@ -128,12 +128,16 @@ def countries_rate(request):
 
 def result(request):
     if request.user.is_authenticated:
+        
+        if(evaluate_result.objects.filter(user_id=request.user).delete()):
+            print('deleted')
+        
         auth_user = request.user
         #add rating of curent user to the csv file
         target_user_id = add_to_csv(auth_user)
         #print('--------------',target_user_id)
         # compute the recomendation
-        recom_alg  = ['KNNBaseline_user','NormalPredictor','SVD']
+        recom_alg  = ['KNNBaseline','CoClustering','SVD']
         recom_size = 5
         top_n_for_target_user = []
 
@@ -159,7 +163,6 @@ def result(request):
             form = Evaluate_resultForm(request.POST)
             
             if form.is_valid():
-            
                 answer1  = form.save(commit = False)
                 answer1.user_id = request.user  
                 answer1.save()
@@ -170,8 +173,8 @@ def result(request):
         return redirect('thesis_app:login')   
     
     # save result to database
-    recom_algorithm  = [recom_alg[0],recom_alg[0],recom_alg[0],
-                         recom_alg[1],recom_alg[1],recom_alg[1],recom_alg[2],recom_alg[2],recom_alg[2]]
+    recom_algorithm  = [recom_alg[0],recom_alg[0],recom_alg[0],recom_alg[0],recom_alg[0],
+                         recom_alg[1],recom_alg[1],recom_alg[1],recom_alg[1],recom_alg[1],recom_alg[2],recom_alg[2],recom_alg[2],recom_alg[2],recom_alg[2]]
     i = 0
     for r,al in zip(recommended_countries,recom_algorithm):
         user_recomded = user_result()

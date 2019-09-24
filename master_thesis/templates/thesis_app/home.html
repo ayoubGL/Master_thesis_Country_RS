@@ -38,21 +38,34 @@
     </div>
     <div class="col-sm-6 div-cl-2 ">
         <div class="panel transbox_desc " style="color:#ffffff;">
-            <div class="center div-tx ">
+            <div class="div-tx " style="text-align: left;">
                 <p class="p0">
-                    This is a <a href="http://ensias.um5.ac.ma/">ENSIAS</a> & <a href="https://www.unibz.it/">UNIBZ</a> research project devoted to personalized rankings and recommendations of countries .
+                    This is a web page for a Master thesis project of <a href="www.linkedin.com/in/el-majjodi-ayoub-72920b118" target="_blank " rel="noopener ">Ayoub EL Majjodi</a> at
+                    <a href="http://ensias.um5.ac.ma/">ENSIAS</a>. This research project aims at building a Recommender System that can learn the preferences of people and suggest to them a list of countries that can match the provided preferences.
                 </p>
                 <p class="p0 ">
-                    Respondent is asked to rate a few countries that are offered. Based on these ratings the system would show three lists of potential countries the respondent might be interested in.</p>
+                    After registration, the users can provide their preferences (e.g., in terms of ratings to the countries). The recommender system uses these preferences to generate personalised ranking lists of countries for the registered users. <br>                    The users can also help us to improve the system by providing further feedback on the provided recommendations.</p>
                 <p class="p0">
-                    This Master thesis is undertaken by <a href="www.linkedin.com/in/el-majjodi-ayoub-72920b118" target="_blank " rel="noopener ">Ayoub EL Majjodi</a> with the supervision of the project by <a href="https://www.linkedin.com/in/lamiaben/">Lamia Ben Hiba</a>                    ,<a href="http://www.inf.unibz.it/~nelioini/ " target="_blank
+                    This Master thesis is undertaken with supervision of <a href="https://www.linkedin.com/in/lamiaben/">Lamia Ben Hiba</a> ,<a href="http://www.inf.unibz.it/~nelioini/ " target="_blank
             " rel="noopener ">Nabil El Ioini</a> and <a href="https://www.linkedin.com/in/mehdielahi/ " target="_blank " rel="noopener ">Mehdi Elahi.</a></p>
                 <p class="p0">To learn more about how it works <a href="{% url 'thesis_app:howWorks' %}">click here</a>.</p>
             </div>
         </div>
+        <div class="col-lg-14">
+            <div class="panel transbox_desc " style="color:#ffffff;">
+                <div style="text-align: justify;">
+                    <h1 style="color:#ffffff;">Terms and Condition</h1>
+                    <p class="div-tx" style="font-size:14px;">
+                        Your participation in this research project is voluntary and gives you no material benefits. The goal is to expand the knowledge that can result in better recommender systems in the novel application domains that have not been explored very much.We highly
+                        appreciate your input which will be extremely valuable for this research. Your privacy is our priority we will do our best in securing the collected data.<br> In case of any questions, feel free to contact
+                        us.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
 
 
-{% endblock %}
+
+    {% endblock %}
