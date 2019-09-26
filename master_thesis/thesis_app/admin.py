@@ -81,7 +81,7 @@ class user_rateAdmin(admin.ModelAdmin):
 
 class usabilitySurveyAdmin(admin.ModelAdmin):
     list_display = ('user_id','created','usage_frequency','system_complexity','usage_ease',
-                    'need_help','functions_integrated','system_inconsistency','learn_to_use','system_inconvenient','confident_level','learning_before')
+                    'need_help','functions_integrated','system_inconsistency','learn_to_use','system_inconvenient','confident_level','learning_before','comment')
     actions = [export_as_csv_action("CSV Export")]
 
 class user_resultAdmin(admin.ModelAdmin):
